@@ -10,7 +10,5 @@ valmy_coords = {'lat': 49.0136, 'lon': 4.9544}
 # データフレームにフランスとヴァルミーの座標を追加
 df = pd.DataFrame([france_coords, valmy_coords])
 
-# 地図上にピンとポリラインを表示
-st.map(df)
-st.write(df)
+# 地図上にピンを表示
 st.map(df)
