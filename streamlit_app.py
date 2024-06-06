@@ -1,31 +1,21 @@
-# Streamlitライブラリをインポート
 import streamlit as st
+import pandas as pd
 
-# ページ設定（タブに表示されるタイトル、表示幅）
-st.set_page_config(page_title="タイトル", layout="wide")
+# 世界遺産の位置情報
+world_heritage_data = pd.DataFrame({
+    '名前': ['キリマンジャロ', 'エーゲ海の島々', 'クスコ歴史地区', 'タージ・マハル', 'グランドキャニオン国立公園', 'メキシコシティ歴史地区', 'クスコ歴史地区', 'モンテ・サン・ミシェル', 'シルクロード', 'イエローストーン国立公園'],
+    'lat': [-3.0674, 37.3635, -13.5183, 27.1751, 36.1069, 19.4326, -13.1631, 48.6361, 38.8610, 44.4279],
+    '経度': [37.3556, 25.2757, -71.9789, 78.0421, -112.1129, -99.1332, -72.5450, -1.5107, 66.1667, -110.5885]
+})
 
-# タイトルを設定
-st.title('Streamlitのサンプルアプリ')
+def main():
+    st.title("世界遺産地図")
 
-# テキスト入力ボックスを作成し、ユーザーからの入力を受け取る
-user_input = st.text_input('あなたの名前を入力してください')
+    # 経度の列名を 'longitude' に変更
+    world_heritage_data.rename(columns={'経度': 'lon'}, inplace=True)
 
-# ボタンを作成し、クリックされたらメッセージを表示
-if st.button('挨拶する'):
-    if user_input:  # 名前が入力されているかチェック
-        st.success(f'🌟 こんにちは、{user_input}さん! 🌟')  # メッセージをハイライト
-    else:
-        st.error('名前を入力してください。')  # エラーメッセージを表示
+    # 地図上に世界遺産のピンを表示
+    st.map(world_heritage_data)
 
-# スライダーを作成し、値を選択
-number = st.slider('好きな数字（10進数）を選んでください', 0, 100)
-
-# 補足メッセージ
-st.caption("十字キー（左右）でも調整できます。")
-
-# 選択した数字を表示
-st.write(f'あなたが選んだ数字は「{number}」です。')
-
-# 選択した数値を2進数に変換
-binary_representation = bin(number)[2:]  # 'bin'関数で2進数に変換し、先頭の'0b'を取り除く
-st.info(f'🔢 10進数の「{number}」を2進数で表現すると「{binary_representation}」になります。 🔢')  # 2進数の表示をハイライト
+if __name__ == "__main__":
+    main()
