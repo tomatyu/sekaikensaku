@@ -1,33 +1,21 @@
 import streamlit as st
-import plotly.graph_objects as go
+import pandas as pd
 
-def main():
-    st.title("地図上に線を引く")
 
-    # 線の始点と終点を指定
-    start_lat, start_lon = 35.681236, 139.767125  # 東京駅の座標
-    end_lat, end_lon = 35.682227, 139.767052       # 東京国際フォーラムの座標
+# フランスの座標
+a = {"lat": 46.603354, "lon": 1.888334}
 
-    # 地図上に線を描画するためのデータ
-    trace = go.Scattermapbox(
-        mode="lines",
-        lon=[start_lon, end_lon],
-        lat=[start_lat, end_lat],
-        marker=dict(size=10),
-        line=dict(width=2, color='red')
-    )
+# ヴァルミーの座標
+b = {"lat": 49.0136, "lon": 4.9544}
 
-    # 地図のレイアウト設定
-    layout = go.Layout(
-        mapbox_style="carto-positron",
-        mapbox_zoom=15,
-        mapbox_center={"lat": start_lat, "lon": start_lon}
-    )
+# 座標追加
+df = pd.DataFrame([a,b]) 
 
-    fig = go.Figure(data=[trace], layout=layout)
+# 線の始点と終点を指定
+start_point = (35.681236, 139.767125)  # 東京駅の座標
+end_point = (35.682227, 139.767052)     # 東京国際フォーラムの座標
 
-    # Plotlyの地図を表示
-    st.plotly_chart(fig)
+# 線を描画
+st.PolyLine(locations=[start_point, end_point], color='red').add_to(df)
 
-if __name__ == "__main__":
-    main()
+
