@@ -7,11 +7,12 @@ kensaku = st.text_input("検索")
 st.write("以下の中から検索してください")
 st.write("一覧：アメリカ合衆国,中華人民共和国，日本国")
 
-if a:
+if st.button("検索を行う"):
+ if a:
     st.write("自由の国！")
-if b:
+ if b:
     st.write("中国料理うまい！")
-if c:
+ if c:
     st.write("我が国！")
 
 
