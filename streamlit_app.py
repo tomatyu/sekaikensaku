@@ -16,6 +16,6 @@ start_point = (35.681236, 139.767125)  # 東京駅の座標
 end_point = (35.682227, 139.767052)     # 東京国際フォーラムの座標
 
 # 線を描画
-st.PolyLine(locations=[start_point, end_point], color='red').add_to(df)
+st.line(locations=[start_point, end_point], color='red').add_to(df)
 
 
