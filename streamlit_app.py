@@ -1,32 +1,24 @@
 import streamlit as st
-import pandas as pd
+import folium
 
-# フランスの座標
-a = {"lat": 46.603354, "lon": 1.888334}
+def main():
+    st.title("地図上に線を引く")
 
-# ヴァルミーの座標
-b = {"lat": 49.0136, "lon": 4.9544}
+    # 地図の初期位置を指定
+    map_center = [35.681236, 139.767125]  # 東京駅の座標
 
-# メイエンの座標
-c = {"lat": 49.9929, "lon": 8.2473}
+    # 地図を描画
+    my_map = folium.Map(location=map_center, zoom_start=15)
 
-# メニンゲンの座標
-d = {"lat": 50.0278, "lon": 10.2254}
+    # 線の始点と終点を指定
+    start_point = (35.681236, 139.767125)  # 東京駅の座標
+    end_point = (35.682227, 139.767052)     # 東京国際フォーラムの座標
 
-# フライブルクの座標
-e = {"lat": 47.9990, "lon":7.8421}
+    # 線を描画
+    folium.PolyLine(locations=[start_point, end_point], color='red').add_to(my_map)
 
-#ネールウィルデンの座標
-f = {"lat": 51.1657, "lon":6.8770}
+    # Streamlitに地図を表示
+    folium_static(my_map)
 
-# ゾーラヴィーゼンの座標
-g = {"lat": 49.7617, "lon":9.9534}
-
-# フリードラントの座標
-h = {"lat": 52.5317, "lon":13.3889}
-
-# データフレームにフランスとヴァルミーの座標を追加
-df = pd.DataFrame([a,b,c,d,e,f,g,h])
-
-# 地図上にピンを表示
-st.map(df)
+if __name__ == "__main__":
+    main()
