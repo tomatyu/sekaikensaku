@@ -4,4 +4,4 @@ a = st.text_input("以下の国を検索してね")
 st.write("例：アメリカ合衆国,中華人民共和国，日本国")
 
 if st.button("押してみろー"):
-    st.write({a})
+    st.write(a)
