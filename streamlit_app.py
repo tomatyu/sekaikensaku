@@ -3,11 +3,10 @@ import pandas as pd
 import numpy as np
 
 st.title("$世界歴史検索$")
-a = st.text_input("検索$(現在はアメリカ,中国,日本しか対応していません)$",
-   ("アメリカ合衆国","中国","日本"))
+a = st.text_input("検索$(現在はアメリカ,中国,日本しか対応していません)$")
 
 st.write("$<検索結果>$") 
-if any([f"{a}" == "アメリカ合衆国" for v in a]):
+if any([f"{a}" == "アメリカ" for v in a]):
     # 国名と首都の表示
    st.write("国名: アメリカ合衆国")
    st.write("首都: ワシントンDC")
