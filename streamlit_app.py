@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-st.title("$お試しだよ！$")
+st.title("$世界歴史検索$")
 a = st.text_input("検索$(現在は国連常任理事国＋日本しか対応していません)$",)
 
 st.write("$<検索結果>$") 
