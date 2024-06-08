@@ -9,11 +9,11 @@ st.write ("アメリカ合衆国", "中華人民共和国", "日本")
 if any([f"{a}" == "アメリカ合衆国" for v in a]):
     st.write("国名:アメリカ合衆国")
     st.write("首都:ワシントンDC")
-    b = pd.DataFrame({
+    df = pd.DataFrame({
     'lat': [38.5342],
     'lot': [77.0212]
     })
-    st.map(b)
+    st.map(df)
 elif any([f"{a}" == "中華人民共和国" for v in a]):
     st.write("中華料理うまい")
 elif any([f"{a}" == "日本" for v in a]):
