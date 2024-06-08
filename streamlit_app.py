@@ -5,7 +5,7 @@ import numpy as np
 st.title("$お試しだよ！$")
 a = st.text_input("検索(現在は国連常任理事国＋日本しか対応していません)",)
 
-st.write("!検索結果!") 
+st.write("_検索結果_") 
 if any([f"{a}" == "アメリカ合衆国" for v in a]):
     # 国名と首都の表示
    st.write("国名: アメリカ合衆国")
