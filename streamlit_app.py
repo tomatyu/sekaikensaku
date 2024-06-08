@@ -3,9 +3,9 @@ import pandas as pd
 import numpy as np
 
 st.title("$お試しだよ！$")
-a = st.text_input("検索",)
-st.write("以下の中から検索して下さい")
-st.write ("アメリカ合衆国", "中華人民共和国", "日本")
+a = st.text_input("検索(現在は国連常任理事国＋日本しか対応していません)",)
+
+st.write("!検索結果!") 
 if any([f"{a}" == "アメリカ合衆国" for v in a]):
     # 国名と首都の表示
    st.write("国名: アメリカ合衆国")
@@ -16,9 +16,9 @@ if any([f"{a}" == "アメリカ合衆国" for v in a]):
     'lat': [38.8977],  # ワシントンDCの緯度
     'lon': [-77.0365]  # ワシントンDCの経度
    })
- # 地図へのピンの表示
+   # 地図へのピンの表示
    st.map(usa_df,zoom = 1)
-elif any([f"{a}" == "中華人民共和国" for v in a]):
+elif any([f"{a}" == "中国" for v in a]):
      # 国名と首都の表示
    st.write("国名: 中華人民共和国")
    st.write("首都: 北京")
