@@ -5,6 +5,7 @@ a = st.selectbox(
     ("アメリカ合衆国", "中華人民共和国", "日本"))
 st.write("以下の中から検索して下さい")
 st.write ("アメリカ合衆国", "中華人民共和国", "日本")
+st.write(f"{a}です")
 if any("[v == アメリカ合衆国 for v in a]"):
     st.write("自由の国！")
 elif any("[v == 中華人民共和国 for v in a]"):
