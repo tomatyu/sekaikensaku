@@ -39,13 +39,13 @@ elif any([f"{a}" == "日本" for v in a]):
 
     # データフレームの作成
    jap_df = pd.DataFrame({
-    'lat': [38.8977],  # 東京の緯度
-    'lon': [-77.0365]  # 東京の経度
+    'lat': [35.6895],  # 東京の緯度
+    'lon': [139.6917]  # 東京の経度
    })
  
      
     # 地図へのピンの表示
-   st.map(jap_df)
+   st.map(jap_df,zoom = 1)
 else:
     st.write("検索結果なし")
 
