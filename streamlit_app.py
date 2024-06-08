@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 st.title("$世界歴史検索$")
-a = st.text_input("検索$(現在は国連常任理事国＋日本しか対応していません)$",)
+a = st.text_input("検索$(現在はアメリカ,中国,日本しか対応していません)$",)
 
 st.write("$<検索結果>$") 
 if any([f"{a}" == "アメリカ合衆国" for v in a]):
