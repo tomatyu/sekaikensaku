@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-st.set_page_config(page_tittle="世界検索")
-
 #　タイトルと説明
 st.title("世界検索")
 a = st.text_input("国を検索(対応していない国もあります)")
@@ -11,7 +9,7 @@ a = st.text_input("国を検索(対応していない国もあります)")
 # データをロードする
 @st.cache
 def load_data():
-    return pd.read_excel("古文単語リスト.xlsx")
+    return pd.read_excel("1234.xlsx")
 
 words_df = load_data()
 
