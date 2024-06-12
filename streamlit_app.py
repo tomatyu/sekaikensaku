@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import openpyxl as np
+import openpyxl
 
 # タイトルと説明
 st.title("国名、首都、座標検索")
