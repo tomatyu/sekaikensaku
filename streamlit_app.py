@@ -15,14 +15,17 @@ def load_data():
 countries_df = load_data()
 
 # システム的なもの
+selected_country = countries_df[countries_df["国名"] == a].iloc[0]
+usa_df = pd.DataFrame({
+    'lat': [(selected_country["緯度"])],  # ワシントンDCの緯度
+    'lon': [(selected_country["経度"])]  # ワシントンDCの経度
+   })
 
 if any(countries_df["国名"] == a):
-    selected_country = countries_df[countries_df["国名"] == a].iloc[0]
     st.write("国名:", selected_country["国名"])
     st.write("首都:", selected_country["首都"])
-    st.write("座標:", selected_country["座標"])
     
     # st.map() を使用して座標を地図上に表示
-    st.map(selected_country["座標"])
+    st.map(usa_df)
 else:
     st.write("検索結果なし")
