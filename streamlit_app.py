@@ -26,6 +26,6 @@ if any(countries_df["国名"] == a):
     st.write("首都:", selected_country["首都"])
     
     # st.map() を使用して座標を地図上に表示
-    st.map(usa_df)
+    st.map(usa_df,zoom = 1)
 else:
     st.write("検索結果なし")
