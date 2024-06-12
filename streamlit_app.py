@@ -17,7 +17,7 @@ countries_df = load_data()
 # システム的なもの
 if any(countries_df["国名"] == a):
     with st.spinner("検索中....."):
-     time.sleep(5)
+     time.sleep(1)
     st.success('完了！')
 
     selected_country = countries_df[countries_df["国名"] == a].iloc[0]
@@ -28,6 +28,3 @@ if any(countries_df["国名"] == a):
     st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=1)
 else:
     st.write("検索結果なし")
-with st.spinner("検索中....."):
-    time.sleep(50)
-st.success('完了！')
