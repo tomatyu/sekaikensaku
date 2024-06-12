@@ -3,7 +3,8 @@ import pandas as pd
 
 # タイトルと説明
 st.title("世界検索")
-a = st.text_input("国名を検索")
+st.write("好きな国家を検索して :red[知識] :をつけましょう！")
+a = st.text_input("国名を検索(入ってない国がある可能性があるので気をつけてください。)")
 
 # データをロードする
 @st.cache
