@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import openpyxl
 
 # タイトルと説明
 st.title("世界検索")
