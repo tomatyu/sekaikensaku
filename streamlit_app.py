@@ -8,14 +8,14 @@ a = st.text_input("国を検索(対応していない国もあります)")
 
 # データをロードする
 @st.cache
-def load_data():
+def b():
     return pd.read_excel("1234.xlsx")
 
-words_df = load_data()
+words_df = b()
 
 #システム的なもの
 
-if any([f"{a}" == load_data for v in a]):
-    st.write(load_data)
+if any([f"{a}" == b for v in a]):
+    st.write(b)
 else:
     st.write("検索結果なし")
