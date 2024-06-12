@@ -8,7 +8,7 @@ a = st.text_input("国を検索(対応していない国もあります)")
 # データをロードする
 @st.cache
 def load_data():
-    return pd.read_excel("1234.xlsx")
+    return pd.read_excel()
 
 words_df = load_data()
 
