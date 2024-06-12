@@ -15,7 +15,7 @@ def load_data():
 countries_df = load_data()
 
 # システム的なもの
-selected_country = countries_df[countries_df["国名"] == a].iloc[0]
+selected_country = countries_df[countries_df["国名"] == a].iloc[1]
 usa_df = pd.DataFrame({
     'lat': [(selected_country["緯度"])],  # 緯度
     'lon': [(selected_country["経度"])]  # 経度
