@@ -17,7 +17,7 @@ countries_df = load_data()
 # システム的なもの
 if any(countries_df["国名"] == a):
     with st.spinner("検索中....."):
-     time.sleep(50)
+     time.sleep(5)
     st.success('完了！')
 
     selected_country = countries_df[countries_df["国名"] == a].iloc[0]
