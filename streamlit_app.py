@@ -26,6 +26,6 @@ if not selected_country.empty:
     st.write("首都:", selected_country["首都"])
     
     # st.map() を使用して座標を地図上に表示
-    st.map(usa_df,zoom = 1)
+    st.map(usa_df)
 else:
     st.write("検索結果なし")
