@@ -24,6 +24,6 @@ if any(countries_df["国名"] == a):
     st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=1)
 else:
     st.write("検索結果なし")
-with st.spinner('Wait for it...'):
-    time.sleep(5)
-st.success('Done!')
+with st.spinner("検索中....."):
+    time.sleep(50)
+st.success('完了！')
