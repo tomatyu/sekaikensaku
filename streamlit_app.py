@@ -5,8 +5,7 @@ import pandas as pd
 st.title("世界検索")
 a = st.text_input("国を検索(対応していない国もあります)")
 
-# データをローどするよーー
-#ーーーーーーーーーーーーーーーーーーー
+# データをローどするよーーーーーーーーーーーーーーーーーーーーー
 @st.cache
 def load_data():
     return pd.read_excel("1234.xlsx")
