@@ -17,8 +17,8 @@ countries_df = load_data()
 # システム的なもの
 selected_country = countries_df[countries_df["国名"] == a].iloc[0]
 usa_df = pd.DataFrame({
-    'lat': [(selected_country["緯度"])],  # ワシントンDCの緯度
-    'lon': [(selected_country["経度"])]  # ワシントンDCの経度
+    'lat': [(selected_country["緯度"])],  # 緯度
+    'lon': [(selected_country["経度"])]  # 経度
    })
 
 if any(countries_df["国名"] == a):
