@@ -14,7 +14,7 @@ def load_data():
 words_df = load_data()
 
 # システム的なもの
-if any(words_df["国"] == a):
-    st.write(words_df[words_df["国"] == a])
+if any(words_df == a):
+    st.write(words_df[words_df == a])
 else:
     st.write("検索結果なし")
