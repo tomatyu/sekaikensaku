@@ -20,12 +20,15 @@ usa_df = pd.DataFrame({
     'lat': [(selected_country["緯度"])],  # 緯度
     'lon': [(selected_country["経度"])]  # 経度
    })
-if not selected_country.empty:
-    selected_country = selected_country.iloc[0]
+
+if any(countries_df["国名"] == a):
     st.write("国名:", selected_country["国名"])
     st.write("首都:", selected_country["首都"])
     
     # st.map() を使用して座標を地図上に表示
-    st.map(usa_df)
+    st.map(usa_df,zoom = 1)
 else:
     st.write("検索結果なし")
+
+
+
