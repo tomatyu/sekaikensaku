@@ -15,13 +15,13 @@ def load_data():
 countries_df = load_data()
 
 # システム的なもの
-selected_country = countries_df[countries_df["国名"] == a].iloc[0]
+selected_country = countries_df[countries_df["国名"] == a]
 usa_df = pd.DataFrame({
     'lat': [(selected_country["緯度"])],  # 緯度
     'lon': [(selected_country["経度"])]  # 経度
    })
-
-if any(countries_df["国名"] == a):
+if not selected_country.empty:
+    selected_country = selected_country.iloc[0]
     st.write("国名:", selected_country["国名"])
     st.write("首都:", selected_country["首都"])
     
