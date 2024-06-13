@@ -23,7 +23,7 @@ if any(countries_df["国名"] == a):
 
         # 国旗の表示
         try:
-            flag_image = Image.open(f'flags/{selected_country["国旗ファイル名"]}')
+            flag_image = Image.open(f'flags/{selected_country["国旗"]}')
             st.image(flag_image, caption=f'Flag of {selected_country["国名"]}', use_column_width=True)
         except FileNotFoundError:
             st.write(f"Flag for {selected_country['国名']} not found")
