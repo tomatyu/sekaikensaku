@@ -10,7 +10,7 @@ a = st.text_input("国名を検索してください（適用していない国�
 # データをロードする
 @st.cache
 def load_data():
-    return pd.read_excel("12.xlsx")
+    return pd.read_excel("13.xlsx")
 
 countries_df = load_data()
 
