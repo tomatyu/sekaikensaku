@@ -4,20 +4,20 @@ import time
 
 # タイトルと説明
 st.title("世界検索")
-st.write("好きな国家を検索して :red[知識] をつけましょう！")
-a = st.text_input("国名を検索(入ってない国がある可能性があるので気をつけてください。)")
+st.write("好きな国を検索して、情報を見つけましょう！")
+a = st.text_input("国名を検索してください（適用していない国もあります）")
 
 # データをロードする
 @st.cache
 def load_data():
-    return pd.read_excel("12.xslx")
+    return pd.read_excel("12.xlsx")
 
 countries_df = load_data()
 
 # システム的なもの
 if any(countries_df["国名"] == a):
     with st.spinner("検索中....."):
-     time.sleep(1)
+        time.sleep(1)
 
     selected_country = countries_df[countries_df["国名"] == a].iloc[0]
     st.write("国名:", selected_country["国名"])
