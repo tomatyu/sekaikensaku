@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from PIL import Image
+import time
 
 # タイトルと説明
 st.title("世界検索")
@@ -10,25 +10,20 @@ a = st.text_input("国名を検索してください（適用していない国�
 # データをロードする
 @st.cache
 def load_data():
-    return pd.read_excel("13.xlsx")
+    return pd.read_excel("12.xlsx")
 
 countries_df = load_data()
 
 # システム的なもの
 if any(countries_df["国名"] == a):
     with st.spinner("検索中....."):
-        selected_country = countries_df[countries_df["国名"] == a].iloc[0]
-        st.write("国名:", selected_country["国名"])
-        st.write("首都:", selected_country["首都"])
+        time.sleep(1)
 
-        # 国旗の表示
-        try:
-            flag_image = Image.open(f'flags/{selected_country["国旗"]}')
-            st.image(flag_image, caption=f'Flag of {selected_country["国名"]}', use_column_width=True)
-        except FileNotFoundError:
-            st.write(f"Flag for {selected_country['国名']} not found")
+    selected_country = countries_df[countries_df["国名"] == a].iloc[0]
+    st.write("国名:", selected_country["国名"])
+    st.write("首都:", selected_country["首都"])
 
-        # st.map() を使用して座標を地図上に表示
-        st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
+    # st.map() を使用して座標を地図上に表示
+    st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
 else:
     st.write("検索結果なし")
