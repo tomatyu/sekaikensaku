@@ -24,6 +24,6 @@ if any(countries_df["国名"] == a):
     st.write("首都:", selected_country["首都"])
 
     # st.map() を使用して座標を地図上に表示
-    st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=1)
+    st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
 else:
     st.write("検索結果なし")
