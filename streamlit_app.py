@@ -10,7 +10,7 @@ a = st.text_input("国名を検索(入ってない国がある可能性がある
 # データをロードする
 @st.cache
 def load_data():
-    return pd.read_excel("2345.xlsx")
+    return pd.read_excel("情報班 国一覧.xslx")
 
 countries_df = load_data()
 
