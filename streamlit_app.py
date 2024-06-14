@@ -10,7 +10,7 @@ a = st.text_input("国名を検索してください（適用していない国�
 # データをロードする
 @st.cache
 def load_data():
-    return pd.read_excel("12.xlsx")
+    return pd.read_excel("14.xlsx")
 
 countries_df = load_data()
 
@@ -22,6 +22,8 @@ if any(countries_df["国名"] == a):
     selected_country = countries_df[countries_df["国名"] == a].iloc[0]
     st.write("国名:", selected_country["国名"])
     st.write("首都:", selected_country["首都"])
+    st.write("GDP:", selected_country["GDP"])
+
 
     # st.map() を使用して座標を地図上に表示
     st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
