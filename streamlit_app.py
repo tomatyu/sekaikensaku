@@ -22,7 +22,7 @@ if any(countries_df["国名"] == a):
     selected_country = countries_df[countries_df["国名"] == a].iloc[0]
     st.write("国名:", selected_country["国名"])
     st.write("首都:", selected_country["首都"])
-    st.write("GDP:", selected_country["GDP"],"円です")
+    st.write("GDP:", selected_country["GDP"],"円")
 
 
     # st.map() を使用して座標を地図上に表示
