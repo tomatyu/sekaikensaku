@@ -4,12 +4,18 @@ import time
 
 # タイトルと説明
 st.title("世界検索")
-if st.button("let"):
+
+col1, col2, col3 = st.beta_columns(3)
+
+if col1.button("let"):
     st.write("hello")
-if st.button("go"):
+
+if col2.button("go"):
     st.write("konnitiha")
-if st.button("hy"):
+
+if col3.button("hy"):
     st.write("ey")
+
 
 
 st.write("好きな国を検索して、:red[知識] を見つけましょう！")
