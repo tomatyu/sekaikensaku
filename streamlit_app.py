@@ -5,7 +5,7 @@ import time
 # タイトルと説明
 st.title("世界検索")
 
-col1, col2, col3 = st.beta_columns(3)
+col1, col2, col3 = st.columns(3)
 
 if col1.button("let"):
     st.write("hello")
