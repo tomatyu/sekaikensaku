@@ -5,15 +5,17 @@ import time
 # タイトルと説明
 st.title("世界検索")
 
+button_width = 100  # ボタンの幅を調整するための幅（ピクセル単位）
+
 col1, col2, col3 = st.columns(3)
 
-if col1.button("let"):
+if col1.button("let", width=button_width):
     st.write("hello")
 
-if col2.button("go"):
+if col2.button("go", width=button_width):
     st.write("konnitiha")
 
-if col3.button("hy"):
+if col3.button("hy", width=button_width):
     st.write("ey")
 
 
