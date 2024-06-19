@@ -8,39 +8,6 @@ st.title("世界検索")
 col1, col2, col3 = st.columns(3)
 
 if col1.button("国を検索する"):
-    st.write("国を検索するボタンが押されました")
-    # ここに国を検索するためのコードを追加する
-
-if col2.button("go_button"):  # ボタンIDを"go_button"に変更
-    st.title("国検索")
-    st.write("好きな国を検索して、知識を見つけましょう！")
-    a = st.text_input("国名を検索してください（適用していない国もあります）")
-
-    # データをロードする
-    @st.cache
-    def load_data():
-        return pd.read_excel("17.xlsx")
-
-    countries_df = load_data()
-
-    # "go_button"ボタンが押されたときに以下の処理を実行
-    if col2.button("go_button"):
-        if any(countries_df["国名"] == a):
-            with st.spinner("検索中....."):
-                time.sleep(1)
-
-            selected_country = countries_df[countries_df["国名"] == a].iloc[0]
-            st.write("国名:", selected_country["国名"])
-            st.write("首都:", selected_country["首都"])import streamlit as st
-import pandas as pd
-import time
-
-# タイトルと説明
-st.title("世界検索")
-
-col1, col2, col3 = st.columns(3)
-
-if col1.button("国を検索する"):
  st.title("国検索")
  
 
