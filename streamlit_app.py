@@ -7,18 +7,9 @@ st.title("世界検索")
 
 col1, col2, col3 = st.columns(3)
 
-if col1.button("let"):
-    st.write("hello")
-
-if col2.button("go"):
-    st.write("konnitiha")
-
-if col3.button("hy"):
-    st.write("ey")
-
-
-
-st.write("好きな国を検索して、:red[知識] を見つけましょう！")
+if col1.button("国を検索する"):
+ st.title("国検索")
+ st.write("好きな国を検索して、:red[知識] を見つけましょう！")
 a = st.text_input("国名を検索してください（適用していない国もあります）")
 
 # データをロードする
@@ -44,3 +35,13 @@ if any(countries_df["国名"] == a):
 
 else:
     st.write("検索結果なし")
+
+
+if col2.button("go"):
+    st.write("konnitiha")
+
+if col3.button("hy"):
+    st.write("ey")
+
+
+
