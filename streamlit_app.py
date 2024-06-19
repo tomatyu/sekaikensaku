@@ -4,6 +4,14 @@ import time
 
 # タイトルと説明
 st.title("世界検索")
+if st.button("let"):
+    st.write("hello")
+if st.button("go"):
+    st.write("konnitiha")
+if st.button("hy"):
+    st.write("ey")
+
+
 st.write("好きな国を検索して、:red[知識] を見つけましょう！")
 a = st.text_input("国名を検索してください（適用していない国もあります）")
 
