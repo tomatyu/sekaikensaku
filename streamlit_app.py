@@ -38,10 +38,10 @@ if any(countries_df["国名"] == a):
     st.write("国名:", selected_country["国名"])
     st.write("首都:", selected_country["首都"])
     st.write("GDP:", selected_country["GDP"])
-    
+    st.write("概要:", selected_country["概要"])
+
     # st.map() を使用して座標を地図上に表示
     st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
-    st.write("概要:", selected_country["概要"])
 
 else:
     st.write("検索結果なし")
