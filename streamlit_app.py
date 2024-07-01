@@ -1,9 +1,10 @@
 import streamlit as st
 import pandas as pd
-import matplotlib
-matplotlib.use('Agg')  # Matplotlibのバックエンドを設定
-
 import matplotlib.pyplot as plt
+import matplotlib
+
+# Matplotlibのバックエンドを設定
+matplotlib.use('Agg')  # 非対話モードに設定
 
 # 七大国のGDPデータ（2023年の予測値）
 gdp_data = {
