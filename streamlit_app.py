@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib
 
-# Matplotlibのバックエンドを設定
+# Matplotlibの設定を変更
 matplotlib.use('Agg')  # 非対話モードに設定
 
 # 七大国のGDPデータ（2023年の予測値）
@@ -30,3 +30,4 @@ ax.set_title('七大国のGDP')
 
 # グラフをStreamlitで表示
 st.pyplot(fig)
+
