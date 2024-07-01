@@ -1,6 +1,10 @@
 import streamlit as st
 import pandas as pd
+import matplotlib
 import matplotlib.pyplot as plt
+
+# Matplotlibの設定を変更
+matplotlib.use('Agg')  # 非対話モードに設定
 
 # 七大国のGDPデータ（2023年の予測値）
 gdp_data = {
