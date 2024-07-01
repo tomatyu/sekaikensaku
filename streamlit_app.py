@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import time
 import numpy as np
-import numpy as plt
+import pyexpat as plt
 
 # タイトルと説明
 st.title("世界検索")
