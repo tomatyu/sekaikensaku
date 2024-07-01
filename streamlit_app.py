@@ -27,4 +27,5 @@ ax.set_xlabel('Country')
 ax.set_ylabel('GDP (trillion USD)')
 ax.set_title('七大国のGDP')
 
-# グ
+# グラフをStreamlitで表示
+st.pyplot(fig)
