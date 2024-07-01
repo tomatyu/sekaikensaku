@@ -10,6 +10,7 @@ st.title("世界検索")
 countries = ["USA", "Japan", "China", "Russia", "UK"]
 gdp_data = pd.DataFrame(np.random.rand(5, 1) * 1000, columns=["GDP"], index=countries)
 
+
 col1, col2, col3 = st.columns(3)
 
 if col1.button("国を検索する"):
@@ -24,15 +25,15 @@ if col2.button("go"):
 
 
 # グラフの作成
- plt.figure(figsize=(10, 6))
- plt.bar(gdp_data.index, gdp_data["GDP"], color=['blue', 'green', 'red', 'purple', 'orange'])
- plt.title('GDP of Countries')
- plt.xlabel('Country')
- plt.ylabel('GDP (Billion $)')
- plt.grid(True)
- plt.show()
+ fig, ax = plt.subplots()
+ ax.bar(gdp_data.index, gdp_data["GDP"], color=['blue', 'green', 'red', 'purple', 'orange'])
+ ax.set_title('GDP of Countries')
+ ax.set_xlabel('Country')
+ ax.set_ylabel('GDP (Billion $)')
+ ax.grid(True)
 
-
+# Streamlitでグラフを表示
+ st.pyplot(fig)
 if col3.button("hy"):
     st.write("ey")
 
