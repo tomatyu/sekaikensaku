@@ -1,10 +1,9 @@
 import streamlit as st
 import pandas as pd
 import matplotlib
-import matplotlib.pyplot as plt
+matplotlib.use('Agg')  # Matplotlibのバックエンドを設定
 
-# Matplotlibの設定を変更
-matplotlib.use('Agg')  # 非対話モードに設定
+import matplotlib.pyplot as plt
 
 # 七大国のGDPデータ（2023年の予測値）
 gdp_data = {
@@ -28,5 +27,4 @@ ax.set_xlabel('Country')
 ax.set_ylabel('GDP (trillion USD)')
 ax.set_title('七大国のGDP')
 
-# グラフをStreamlitで表示
-st.pyplot(fig)
+# グ
