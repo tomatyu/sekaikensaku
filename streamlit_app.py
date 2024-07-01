@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import time
 import numpy as np
+import numpy as plt
 
 # タイトルと説明
 st.title("世界検索")
@@ -23,16 +24,15 @@ if col2.button("go"):
 
 
 
-# グラフの作成
- fig, ax = plt.subplots()
- ax.bar(gdp_data.index, gdp_data["GDP"], color=['blue', 'green', 'red', 'purple', 'orange'])
- ax.set_title('GDP of Countries')
- ax.set_xlabel('Country')
- ax.set_ylabel('GDP (Billion $)')
- ax.grid(True)
+ plt.figure(figsize=(10, 6))  # プロットのサイズを設定
+ plt.bar(gdp_data.index, gdp_data["GDP"], color=['blue', 'green', 'red', 'purple', 'orange'])
+ plt.title('GDP of Countries')
+ plt.xlabel('Country')
+ plt.ylabel('GDP (Billion $)')
+ plt.grid(True)
 
 # Streamlitでグラフを表示
- st.pyplot(fig)
+st.pyplot()
 if col3.button("hy"):
     st.write("ey")
 
