@@ -14,10 +14,20 @@ df = pd.DataFrame(gdp_data)
 
 # Streamlit application title
 st.title('GDP Comparison of 7 Major Countries')
-if st.button('全体を翻訳する'):
-    # ここに全体を翻訳する処理を記述する（例として、'Hello'を日本語に翻訳する）
-    translation = translator.translate('Hello', dest='ja').text
-    st.write(f'翻訳結果: {translation}')
+
+# Create a Translator object
+translator = Translator()
+
+# Function to translate text
+def translate_text(text, dest='ja'):
+    translation = translator.translate(text, dest=dest)
+    return translation.text
+
+# Translation button
+if st.button('Translate Entire Content'):
+    st.subheader('Translated Content')
+    st.write('7 major countries GDP data:')
+    st.write(df.applymap(lambda x: translate_text(str(x))))
 
 # Display raw data as an option
 if st.checkbox('Show raw data'):
