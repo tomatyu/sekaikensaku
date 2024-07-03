@@ -5,13 +5,13 @@ import matplotlib.pyplot as plt
 # GDPデータの読み込み
 @st.cache  # データをキャッシュし、再読み込みを高速化する
 def load_data():
-    # CSVファイルの読み込み（適切なファイルパスを指定）
-   # CSVファイルの読み込み（ファイルパスを適切に変更）
-   # CSVファイルの読み込み（相対パスを使用する例）
-    df = pd.read_csv('gdp_data.csv')  # streamlit_app.pyと同じディレクトリにファイルがある場合
-
-
-    return df
+    # CSVファイルの読み込み（ファイルオブジェクトを使用する例）
+    uploaded_file = st.file_uploader("Choose a file")
+    if uploaded_file is not None:
+        df = pd.read_csv(uploaded_file)
+        return df
+    else:
+        st.warning('Upload CSV file')
 
 # メインのStreamlitアプリケーション
 def main():
