@@ -1,39 +1,44 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+from googletrans import Translator
 
-# 7大国のGDPデータ（兆ドル）
+# 7 major countries GDP data in trillion dollars
 gdp_data = {
-    '国名': ['アメリカ', '中国', '日本', 'ドイツ', 'イギリス', 'インド', 'フランス'],
-    'GDP（兆ドル）': [23.5, 14.3, 5.1, 4.2, 2.9, 2.8, 2.7]
+    'Country': ['USA', 'China', 'Japan', 'Germany', 'UK', 'India', 'France'],
+    'GDP (trillion $)': [23.5, 14.3, 5.1, 4.2, 2.9, 2.8, 2.7]
 }
 
-# GDPデータをDataFrameに変換
+# Convert GDP values to trillion dollars (if needed)
 df = pd.DataFrame(gdp_data)
 
-# Streamlitアプリケーションの作成
-st.title('7大国のGDPを比較するアプリ')
+# Streamlit application title
+st.title('GDP Comparison of 7 Major Countries')
+if .button('全体を翻訳する'):
+    # ここに全体を翻訳する処理を記述する（例として、'Hello'を日本語に翻訳する）
+    translation = translator.translate('Hello', dest='ja').text
+    st.write(f'翻訳結果: {translation}')
 
-# 日本語翻訳ボタン
-if st.button('全体を日本語に翻訳'):
-    st.markdown('### 7大国のGDPの比較（棒グラフ）')
-    st.write('以下は7大国のGDPを兆ドルで比較したグラフです。')
+# Display raw data as an option
+if st.checkbox('Show raw data'):
     st.write(df)
 
-# グラフの作成
-st.subheader('7 Major Countries GDP Comparison (Bar Chart)')
+# Plotting the bar chart
+st.subheader('Comparison of GDP (trillion $)')
 
-# グラフをプロット
+# Create a figure and axis
 fig, ax = plt.subplots()
-ax.bar(df['国名'], df['GDP（兆ドル）'], color='blue')
 
-# 軸ラベルとタイトルの設定
+# Plotting the bar chart
+ax.bar(df['Country'], df['GDP (trillion $)'], color='blue')
+
+# Setting labels and title
 ax.set_xlabel('Country')
 ax.set_ylabel('GDP (trillion $)')
 ax.set_title('GDP of Major Countries')
 
-# x軸ラベルの回転
+# Rotating x-axis labels for better readability
 plt.xticks(rotation=45)
 
-# グラフを表示
+# Display the plot in Streamlit
 st.pyplot(fig)
