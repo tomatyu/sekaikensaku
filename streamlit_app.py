@@ -1,31 +1,42 @@
 import streamlit as st
 import pandas as pd
-import time
+import matplotlib.pyplot as plt
 
-# タイトルと説明
-st.title("世界検索")
-st.write("好きな国を検索して、:red[知識] を見つけましょう！")
-a = st.text_input("国名を検索してください（適用していない国もあります）")
-
-# データをロードする
-@st.cache
+# GDPデータの読み込み
+@st.cache  # データをキャッシュし、再読み込みを高速化する
 def load_data():
-    return pd.read_excel("17.xlsx")
+    # CSVファイルの読み込み
+    df = pd.read_excel('17.xlsx')
+    return df
 
-countries_df = load_data()
+# メインのStreamlitアプリケーション
+def main():
+    st.title('7大国のGDPをバーチャートで表示するアプリ')
 
-# システム的なもの
-if any(countries_df["国名"] == a):
-    with st.spinner("検索中....."):
-        time.sleep(1)
+    # GDPデータを読み込む
+    df = load_data()
 
-    selected_country = countries_df[countries_df["国名"] == a].iloc[0]
-    st.write("国名:", selected_country["国名"])
-    st.write("首都:", selected_country["首都"])
-    st.write("GDP:", selected_country["GDP"])
-    st.write("概要:", selected_country["概要"])
+    # データフレームの表示（オプション）
+    if st.checkbox('Show raw data'):
+        st.write(df)
 
-    # st.map() を使用して座標を地図上に表示
-    st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
-else:
-    st.write("検索結果なし")
+    # グラフの作成
+    st.subheader('7大国のGDPの比較')
+
+    # グラフをプロット
+    fig, ax = plt.subplots()
+    ax.bar(df['Country'], df['GDP'], color='blue')  # バープロットを使用する例（青色で表示）
+
+    # グラフの軸ラベルとタイトルの設定
+    ax.set_xlabel('Country')
+    ax.set_ylabel('GDP (in trillion $)')
+    ax.set_title('GDP of Major Countries')
+
+    # x軸ラベルの回転
+    plt.xticks(rotation=45)
+
+    # グラフをStreamlitに表示
+    st.pyplot(fig)
+
+if __name__ == '__main__':
+    main()
