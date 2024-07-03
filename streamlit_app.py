@@ -43,7 +43,7 @@ else:
 # 右側のカラムにボタン2を配置
 if col2.button('国のGDP検索'):
     # GDPデータをDataFrameに変換
-df = pd.DataFrame(gdp_data)
+ df = pd.DataFrame(gdp_data)
 
 # Streamlitアプリケーションの作成
 st.title('7大国のGDPをバーチャートで表示するアプリ')
