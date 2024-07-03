@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 
 # 7大国のGDPデータを定義
 gdp_data = {
-    'Country': ['USA', 'China', 'Japan', 'Germany', 'UK', 'India', 'France'],
-    'GDP': [23.5, 14.3, 5.1, 4.2, 2.9, 2.8, 2.7]
+    'Country': ['USA', 'China', 'Japan', 'Germany', 'UK', 'India', 'France',["国名"]],
+    'GDP': [23.5, 14.3, 5.1, 4.2, 2.9, 2.8, 2.7,["GDP"]]
 }
 
 # タイトルと説明
