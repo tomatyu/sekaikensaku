@@ -14,7 +14,7 @@ df = pd.DataFrame(gdp_data)
 
 # Streamlit application title
 st.title('GDP Comparison of 7 Major Countries')
-if .button('全体を翻訳する'):
+if st.button('全体を翻訳する'):
     # ここに全体を翻訳する処理を記述する（例として、'Hello'を日本語に翻訳する）
     translation = translator.translate('Hello', dest='ja').text
     st.write(f'翻訳結果: {translation}')
