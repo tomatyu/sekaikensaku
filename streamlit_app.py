@@ -7,7 +7,9 @@ import matplotlib.pyplot as plt
 def load_data():
     # CSVファイルの読み込み（適切なファイルパスを指定）
    # CSVファイルの読み込み（ファイルパスを適切に変更）
-    df = pd.read_csv('/path/to/your/gdp_data.csv')  # 絶対パスを使用する例
+   # CSVファイルの読み込み（相対パスを使用する例）
+    df = pd.read_csv('gdp_data.csv')  # streamlit_app.pyと同じディレクトリにファイルがある場合
+
 
     return df
 
