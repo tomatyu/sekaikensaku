@@ -5,50 +5,39 @@ import matplotlib.pyplot as plt
 # 日本語フォントの設定
 plt.rcParams['font.family'] = 'IPAexGothic'
 
-# 為替レート（2024年7月時点の目安）
-exchange_rate = {
-    'アメリカ': 110,   # 1ドル = 110円
-    '中国': 16,        # 1元 = 16円
-    '日本': 1,         # 1円 = 1円（基準）
-    'ドイツ': 130,     # 1ユーロ = 130円
-    'イギリス': 150,   # 1ポンド = 150円
-    'インド': 1.5,     # 1ルピー = 1.5円
-    'フランス': 120    # 1ユーロ = 120円
-}
 
-# 7大国のGDPデータを定義（兆円単位で設定）
+# 7 major countries GDP data in trillion dollars
 gdp_data = {
-    '国名': ['アメリカ', '中国', '日本', 'ドイツ', 'イギリス', 'インド', 'フランス'],
-    'GDP': [23.5, 14.3, 5.1, 4.2, 2.9, 2.8, 2.7]
+    'Country': ['USA', 'China', 'Japan', 'Germany', 'UK', 'India', 'France'],
+    'GDP (trillion $)': [23.5, 14.3, 5.1, 4.2, 2.9, 2.8, 2.7]
 }
 
-# GDPを日本円に換算
-gdp_in_yen = [g * exchange_rate.get(country, 1) * 10**12 for country, g in zip(gdp_data['国名'], gdp_data['GDP'])]
+# Convert GDP values to trillion dollars (if needed)
+df = pd.DataFrame(gdp_data)
 
-# 新しいDataFrameに変換
-df = pd.DataFrame({'国名': gdp_data['国名'], 'GDP(日本円)': gdp_in_yen})
+# Streamlit application title
+st.title('GDP Comparison of 7 Major Countries')
 
-# Streamlitアプリケーションの作成
-st.title('7大国のGDPを棒グラフで表示するアプリ')
-
-# データフレームの表示（オプション）
-if st.checkbox('生データを表示'):
+# Display raw data as an option
+if st.checkbox('Show raw data'):
     st.write(df)
 
-# グラフの作成
-st.subheader('7大国のGDPの比較（棒グラフ）')
+# Plotting the bar chart
+st.subheader('Comparison of GDP (trillion $)')
 
-# プロット
+# Create a figure and axis
 fig, ax = plt.subplots()
-ax.bar(df['国名'], df['GDP(日本円)'], color='blue')
 
-# 軸ラベルとタイトルの設定（日本語）
-ax.set_xlabel('国名')
-ax.set_ylabel('GDP（日本円）')
-ax.set_title('主要国のGDP')
+# Plotting the bar chart
+ax.bar(df['Country'], df['GDP (trillion $)'], color='blue')
 
-# x軸ラベルの回転
+# Setting labels and title
+ax.set_xlabel('Country')
+ax.set_ylabel('GDP (trillion $)')
+ax.set_title('GDP of Major Countries')
+
+# Rotating x-axis labels for better readability
 plt.xticks(rotation=45)
 
-# グラフを表示
+# Display the plot in Streamlit
 st.pyplot(fig)
