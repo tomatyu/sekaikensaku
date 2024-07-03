@@ -18,7 +18,7 @@ col1, col2 = st.beta_columns(2)
 # 左側のカラムにボタン1を配置
 if col1.button('国検索'):
     # データをロードする
-@st.cache
+ st.cache
 def load_data():
     return pd.read_excel("17.xlsx")
 
