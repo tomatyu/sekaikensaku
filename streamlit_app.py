@@ -4,7 +4,8 @@ import time
 import matplotlib.pyplot as plt
 
 # Streamlitのレイアウトを2列に分ける
-col1, col2 = st.beta_columns(2)
+col1 = st.beta_columns(2)
+col2 = st.beta_columns(2)
 
 # 7大国のGDPデータを定義
 gdp_data = {
