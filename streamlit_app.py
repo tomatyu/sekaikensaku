@@ -23,30 +23,32 @@ gdp_data = {
 }
 
 # GDPを日本円に換算
-for country in gdp_data['国名']:
-    if country in exchange_rate:
-        idx = gdp_data['国名'].index(country)
-        gdp_data['GDP'][idx] *= exchange_rate[country] * 10**12
+gdp_in_yen = [g * exchange_rate.get(country, 1) * 10**12 for country, g in zip(gdp_data['国名'], gdp_data['GDP'])]
 
-# GDPデータをDataFrameに変換
-df = pd.DataFrame(gdp_data)
+# 新しいDataFrameに変換
+df = pd.DataFrame({'国名': gdp_data['国名'], 'GDP(日本円)': gdp_in_yen})
 
 # Streamlitアプリケーションの作成
-st.title('7大国のGDPを円グラフで表示するアプリ')
+st.title('7大国のGDPを棒グラフで表示するアプリ')
 
 # データフレームの表示（オプション）
 if st.checkbox('生データを表示'):
     st.write(df)
 
 # グラフの作成
-st.subheader('7大国のGDPの比較（円グラフ）')
+st.subheader('7大国のGDPの比較（棒グラフ）')
 
-# ラベルとサイズを指定して円グラフをプロット
+# プロット
 fig, ax = plt.subplots()
-ax.pie(df['GDP'], labels=df['国名'], autopct='%1.1f%%', startangle=90, counterclock=False)
+ax.bar(df['国名'], df['GDP(日本円)'], color='blue')
 
-# グラフを中央に配置してアスペクト比を維持
-ax.axis('equal')
+# 軸ラベルとタイトルの設定（日本語）
+ax.set_xlabel('国名')
+ax.set_ylabel('GDP（日本円）')
+ax.set_title('主要国のGDP')
 
-# グラフをStreamlitに表示
+# x軸ラベルの回転
+plt.xticks(rotation=45)
+
+# グラフを表示
 st.pyplot(fig)
