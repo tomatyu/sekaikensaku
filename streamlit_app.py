@@ -1,38 +1,31 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
+import time
 
-# GDPデータの読み込み
-@st.cache  # データをキャッシュし、再読み込みを高速化する
+# タイトルと説明
+st.title("世界検索")
+st.write("好きな国を検索して、:red[知識] を見つけましょう！")
+a = st.text_input("国名を検索してください（適用していない国もあります）")
+
+# データをロードする
+@st.cache
 def load_data():
-    # CSVファイルの読み込み（ファイルオブジェクトを使用する例）
-    uploaded_file = st.file_uploader("Choose a file")
-    if uploaded_file is not None:
-        df = pd.read_csv(uploaded_file)
-        return df
-    else:
-        st.warning('Upload CSV file')
+    return pd.read_excel("17.xlsx")
 
-# メインのStreamlitアプリケーション
-def main():
-    st.title('大国のGDPを表示するアプリ')
+countries_df = load_data()
 
-    # GDPデータを読み込む
-    df = load_data()
+# システム的なもの
+if any(countries_df["国名"] == a):
+    with st.spinner("検索中....."):
+        time.sleep(1)
 
-    # データフレームの表示（オプション）
-    if st.checkbox('Show raw data'):
-        st.write(df)
+    selected_country = countries_df[countries_df["国名"] == a].iloc[0]
+    st.write("国名:", selected_country["国名"])
+    st.write("首都:", selected_country["首都"])
+    st.write("GDP:", selected_country["GDP"])
+    st.write("概要:", selected_country["概要"])
 
-    # グラフの作成
-    st.subheader('GDPのグラフ')
-
-    # グラフをプロット
-    fig, ax = plt.subplots()
-    ax.bar(df['Country'], df['GDP'])  # バープロットを使用する例
-
-    # グラフをStreamlitに表示
-    st.pyplot(fig)
-
-if __name__ == '__main__':
-    main()
+    # st.map() を使用して座標を地図上に表示
+    st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
+else:
+    st.write("検索結果なし")
