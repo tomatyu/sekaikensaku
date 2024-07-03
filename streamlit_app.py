@@ -3,14 +3,13 @@ import pandas as pd
 import time
 import matplotlib.pyplot as plt
 
-# Excelファイルからデータを読み込む関数
-@st.cache
-def load_data():
-    # Excelファイルからデータを読み込む（ファイルパスを適宜変更する）
-    return pd.read_excel("17.xlsx")
 
-# 7大国のGDPデータを読み込む
-gdp_data = load_data()
+
+# 7大国のGDPデータを定義
+gdp_data = {
+    'Country': ['USA', 'China', 'Japan', 'Germany', 'UK', 'India', 'France',["国名"]],
+    'GDP': [23.5, 14.3, 5.1, 4.2, 2.9, 2.8, 2.7,["GDP"]]
+}
 
 # タイトルと説明
 st.title("世界検索")
@@ -19,31 +18,45 @@ a = st.text_input("国名を入力してください（適用していない国�
 
 # 左側のカラムに「国検索」ボタンを配置
 if st.button('国検索'):
-    if any(gdp_data["国名"] == a):
+    @st.cache
+    def load_data():
+        return pd.read_excel("17.xlsx")
+
+    countries_df = load_data()
+
+    if any(countries_df["国名"] == a):
         with st.spinner("検索中....."):
             time.sleep(1)
 
-        selected_country = gdp_data[gdp_data["国名"] == a].iloc[0]
+        selected_country = countries_df[countries_df["国名"] == a].iloc[0]
         st.write("国名:", selected_country["国名"])
+        st.write("首都:", selected_country["首都"])
         st.write("GDP:", selected_country["GDP"])
+        st.write("概要:", selected_country["概要"])
+
+        # st.map() を使用して座標を地図上に表示
+        st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
     else:
         st.write("検索結果なし")
 
 # 右側のカラムに「国のGDP検索」ボタンを配置
 if st.button('国のGDP検索'):
+    # GDPデータをDataFrameに変換
+    df = pd.DataFrame(gdp_data)
+
     # Streamlitアプリケーションの作成
     st.title('7大国のGDPをバーチャートで表示するアプリ')
 
     # データフレームの表示（オプション）
     if st.checkbox('生データを表示する'):
-        st.write(gdp_data)
+        st.write(df)
 
     # グラフの作成
     st.subheader('7大国のGDPの比較')
 
     # グラフをプロット
     fig, ax = plt.subplots()
-    ax.bar(gdp_data['国名'], gdp_data['GDP'], color='blue')  # バープロットを使用する例（青色で表示）
+    ax.bar(df['b'], df['c'], color='red')  # バープロットを使用する例（青色で表示）
 
     # グラフの軸ラベルとタイトルの設定
     ax.set_xlabel('Country')
