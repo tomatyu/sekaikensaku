@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import time
 import matplotlib.pyplot as plt
-
+col1, col2 = st.beta_columns(2)
 # 7大国のGDPデータを定義
 gdp_data = {
     'Country': ['USA', 'China', 'Japan', 'Germany', 'UK', 'India', 'France'],
@@ -13,7 +13,7 @@ gdp_data = {
 st.title("世界検索")
 st.write("好きな国を検索して、:red[知識] を見つけましょう！")
 a = st.text_input("国名を入力してください（適用していない国もあります）")
-col1, col2 = st.beta_columns(2)
+
 
 # 左側のカラムにボタン1を配置
 if col1.button('国検索'):
