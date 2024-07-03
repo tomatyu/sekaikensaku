@@ -3,9 +3,7 @@ import pandas as pd
 import time
 import matplotlib.pyplot as plt
 
-# Streamlitのレイアウトを2列に分ける
-col1 = st.beta_columns(2)
-col2 = st.beta_columns(2)
+
 
 # 7大国のGDPデータを定義
 gdp_data = {
@@ -19,7 +17,7 @@ st.write("好きな国を検索して、:red[知識] を見つけましょう！
 a = st.text_input("国名を入力してください（適用していない国もあります）")
 
 # 左側のカラムに「国検索」ボタンを配置
-if col1.button('国検索'):
+if st.button('国検索'):
     @st.cache
     def load_data():
         return pd.read_excel("17.xlsx")
@@ -42,7 +40,7 @@ if col1.button('国検索'):
         st.write("検索結果なし")
 
 # 右側のカラムに「国のGDP検索」ボタンを配置
-if col2.button('国のGDP検索'):
+if st.button('国のGDP検索'):
     # GDPデータをDataFrameに変換
     df = pd.DataFrame(gdp_data)
 
