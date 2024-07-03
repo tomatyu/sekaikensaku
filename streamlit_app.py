@@ -6,7 +6,9 @@ import matplotlib.pyplot as plt
 @st.cache  # データをキャッシュし、再読み込みを高速化する
 def load_data():
     # CSVファイルの読み込み（適切なファイルパスを指定）
-    df = pd.read_csv('path_to_your_gdp_data.csv')  # ファイルパスを適宜変更
+   # CSVファイルの読み込み（ファイルパスを適切に変更）
+    df = pd.read_csv('/path/to/your/gdp_data.csv')  # 絶対パスを使用する例
+
     return df
 
 # メインのStreamlitアプリケーション
