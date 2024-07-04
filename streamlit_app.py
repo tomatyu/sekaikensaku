@@ -66,7 +66,7 @@ if st.button('国のGDP検索'):
     ax.bar(df['Country'], df['GDP'], color='red')  # 青色でバープロットする例
 
     # 選択された国を異なる色でハイライトする
-    if a in df['Country'].values:
+    if a.strip() != "" and a in df['Country'].values:
         idx = df.index[df['Country'] == a][0]
         ax.bar(df['Country'][idx], df['GDP'][idx], color='blue')  # 選択された国を青でハイライト
 
