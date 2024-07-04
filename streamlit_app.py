@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 
 # 7大国のGDPデータを定義
 gdp_data = {
-    'Country': ['USA', 'China', 'Japan', 'Germany', 'UK', 'India', 'France',["国名"]],
-    'GDP': [23.5, 14.3, 5.1, 4.2, 2.9, 2.8, 2.7,["GDP"]]
+    'Country': ['USA', 'China', 'Japan', 'Germany', 'UK', 'India', 'France',(selected_country["国名"])],
+    'GDP': [23.5, 14.3, 5.1, 4.2, 2.9, 2.8, 2.7,(selected_country["GDP"])]
 }
 
 # タイトルと説明
@@ -59,7 +59,7 @@ if st.button('国のGDP検索'):
     ax.bar(df['b'], df['c'], color='red')  # バープロットを使用する例（青色で表示）
 
     # グラフの軸ラベルとタイトルの設定
-    ax.set_xlabel('Country')
+    ax.set_xlabel('country')
     ax.set_ylabel('GDP (in trillion $)')
     ax.set_title('GDP of Major Countries')
 
