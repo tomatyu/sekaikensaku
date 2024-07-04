@@ -11,16 +11,16 @@ def load_data():
 # 国のデータを読み込む
 countries_df = load_data()
 
-# 初期の7大国のGDPデータを定義する
-gdp_data = {
-    'Country': ['USA', 'China', 'Japan', 'Germany', 'UK', 'India', 'France'],
-    'GDP': [23.5, 14.3, 5.1, 4.2, 2.9, 2.8, 2.7]
-}
-
 # Streamlitアプリケーションのセットアップ
 st.title("世界検索")
 st.write("好きな国を検索して、:red[知識] を見つけましょう！")
 a = st.text_input("国名を入力してください（適用していない国もあります）")
+selected_country = countries_df[countries_df["国名"] == a].iloc[0]
+# 初期の7大国のGDPデータを定義する
+gdp_data = {
+    'country': [selected_country["国名"]],
+    'GDP': [selected_country["GDP"]]
+}
 
 # 国検索ボタン
 if st.button('国検索'):
