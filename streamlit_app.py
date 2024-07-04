@@ -18,7 +18,7 @@ a = st.text_input("国名を入力してください（適用していない国�
 selected_country = countries_df[countries_df["国名"] == a].iloc[0]
 # 初期の7大国のGDPデータを定義する
 gdp_data = {
-    'country': [selected_country["国名"]],
+    'Country': [selected_country["国名"]],
     'GDP': [selected_country["GDP"]]
 }
 
