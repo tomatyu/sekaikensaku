@@ -3,26 +3,26 @@ import pandas as pd
 import time
 import matplotlib.pyplot as plt
 
-# Load the data initially
+# データを初期読み込みする
 @st.cache
 def load_data():
     return pd.read_excel("17.xlsx")
 
-# Load countries data
+# 国のデータを読み込む
 countries_df = load_data()
 
-# Define initial 7 major countries GDP data
+# 初期の7大国のGDPデータを定義する
 gdp_data = {
     'Country': ['USA', 'China', 'Japan', 'Germany', 'UK', 'India', 'France'],
     'GDP': [23.5, 14.3, 5.1, 4.2, 2.9, 2.8, 2.7]
 }
 
-# Streamlit app setup
+# Streamlitアプリケーションのセットアップ
 st.title("世界検索")
 st.write("好きな国を検索して、:red[知識] を見つけましょう！")
 a = st.text_input("国名を入力してください（適用していない国もあります）")
 
-# Country search button
+# 国検索ボタン
 if st.button('国検索'):
     if any(countries_df["国名"] == a):
         with st.spinner("検索中....."):
@@ -34,49 +34,49 @@ if st.button('国検索'):
         st.write("GDP:", selected_country["GDP"])
         st.write("概要:", selected_country["概要"])
 
-        # Update gdp_data with selected country if it's not already in the list
+        # 選択された国のGDPデータをgdp_dataに追加する
         if selected_country["国名"] not in gdp_data['Country']:
             gdp_data['Country'].append(selected_country["国名"])
             gdp_data['GDP'].append(selected_country["GDP"])
 
-        # Map display
+        # 地図表示
         st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
     else:
         st.write("検索結果なし")
 
-# GDP search button
+# 国のGDP検索ボタン
 if st.button('国のGDP検索'):
-    # Convert gdp_data to DataFrame
+    # gdp_dataをDataFrameに変換する
     df = pd.DataFrame(gdp_data)
 
-    # Streamlit app setup for GDP comparison
+    # GDPの比較用のStreamlitアプリケーションのセットアップ
     st.title('7大国のGDPをバーチャートで表示するアプリ')
 
-    # Display raw data (optional)
+    # 生データ表示（オプション）
     if st.checkbox('生データを表示する'):
         st.write(df)
 
-    # Plot bar chart
+    # バーチャートのプロット
     st.subheader('7大国のGDPの比較')
 
-    # Create figure and axis
+    # 図と軸の作成
     fig, ax = plt.subplots()
 
-    # Plot bar chart
-    ax.bar(df['Country'], df['GDP'], color='red')  # Example using bar plot (displayed in red)
+    # バーチャートのプロット
+    ax.bar(df['Country'], df['GDP'], color='red')  # 青色でバープロットする例
 
-    # Highlight the selected country in a different color
+    # 選択された国を異なる色でハイライトする
     if a in df['Country'].values:
         idx = df.index[df['Country'] == a][0]
-        ax.bar(df['Country'][idx], df['GDP'][idx], color='blue')  # Highlight selected country in blue
+        ax.bar(df['Country'][idx], df['GDP'][idx], color='blue')  # 選択された国を青でハイライト
 
-    # Set axis labels and title
+    # 軸ラベルとタイトルの設定
     ax.set_xlabel('国')
-    ax.set_ylabel('GDP (兆ドル単位)')
+    ax.set_ylabel('GDP（兆ドル単位）')
     ax.set_title('主要国のGDP')
 
-    # Rotate x-axis labels for better visibility
+    # x軸ラベルの回転
     plt.xticks(rotation=45)
 
-    # Display the plot in Streamlit
+    # グラフをStreamlitに表示
     st.pyplot(fig)
