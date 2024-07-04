@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 # データを初期読み込みする
 @st.cache
 def load_data():
-    return pd.read_excel("17.xlsx")
+    return pd.read_excel("18.xlsx")
 
 # 国のデータを読み込む
 countries_df = load_data()
