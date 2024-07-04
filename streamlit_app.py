@@ -65,6 +65,11 @@ if st.button('国のGDP検索'):
     # Plot bar chart
     ax.bar(df['Country'], df['GDP'], color='red')  # Example using bar plot (displayed in red)
 
+    # Highlight the selected country in a different color
+    if a in df['Country'].values:
+        idx = df.index[df['Country'] == a][0]
+        ax.bar(df['Country'][idx], df['GDP'][idx], color='blue')  # Highlight selected country in blue
+
     # Set axis labels and title
     ax.set_xlabel('国')
     ax.set_ylabel('GDP (兆ドル単位)')
