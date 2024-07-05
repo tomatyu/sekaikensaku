@@ -18,6 +18,12 @@ countries_df = load_data()
 # 入力された国名を取得
 a = st.text_input("国名を入力してください（適用していない国もあります）")
 
+# 初期の7大国のGDPデータを定義する
+gdp_data = {
+    'Country': ['USA', 'China', 'Japan', 'Germany', 'UK', 'France', 'India'],
+    'GDP': [21.43, 14.34, 5.08, 3.84, 2.83, 2.71, 2.87]
+}
+
 # 国検索ボタン
 if st.button('国検索'):
     if a.strip() != "":
@@ -33,32 +39,22 @@ if st.button('国検索'):
             # 地図表示
             st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
 
-            # GDPデータを更新
-            gdp_data = {
-                'Country': [],
-                'GDP': []
-            }
-
-            if 'Country' in st.session_state:
-                gdp_data['Country'] = st.session_state['Country']
-                gdp_data['GDP'] = st.session_state['GDP']
-
+            # 選択された国のGDPデータをgdp_dataに追加する
             if selected_country["国名"] not in gdp_data['Country']:
                 gdp_data['Country'].append(selected_country["国名"])
                 gdp_data['GDP'].append(selected_country["GDP"])
 
-            st.session_state['Country'] = gdp_data['Country']
-            st.session_state['GDP'] = gdp_data['GDP']
+            # session_stateに保存
+            st.session_state['gdp_data'] = gdp_data
         else:
             st.write("検索結果なし")
 
 # 国のGDP検索ボタン
 if st.button('国のGDP検索'):
-    if 'Country' in st.session_state and len(st.session_state['Country']) > 0:
-        df = pd.DataFrame({
-            'Country': st.session_state['Country'],
-            'GDP': st.session_state['GDP']
-        })
+    if 'gdp_data' in st.session_state:
+        gdp_data = st.session_state['gdp_data']
+        
+        df = pd.DataFrame(gdp_data)
 
         # GDPの比較用のStreamlitアプリケーションのセットアップ
         st.title('7大国のGDPをバーチャートで表示するアプリ')
@@ -87,4 +83,4 @@ if st.button('国のGDP検索'):
         # グラフをStreamlitに表示
         st.pyplot(fig)
     else:
-        st.write("GDPデータがありません。国検索ボタンを使用して国のデータを追加してください。")
+        st.write("国を検索してから、国のGDPデータを追加してください。")
