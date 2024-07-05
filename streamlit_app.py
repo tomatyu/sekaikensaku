@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import time
 import matplotlib.pyplot as plt
 
 # データを初期読み込みする
@@ -54,7 +55,7 @@ with col1:
 
 # 国のGDP検索ボタン
 with col2:
-    if st.button('GDP検索'):
+    if st.button('国のGDP検索'):
         if 'gdp_data' in st.session_state:
             gdp_data = st.session_state['gdp_data']
 
@@ -74,7 +75,7 @@ with col2:
             fig, ax = plt.subplots()
 
             # バーチャートのプロット
-            bars = ax.bar(df['Country'], df['GDP'], color='red')  # 赤色でバープロットする例
+            ax.bar(df['Country'], df['GDP'], color='red')  # 赤色でバープロットする例
 
             # 軸ラベルとタイトルの設定
             ax.set_xlabel('Country')
@@ -86,12 +87,6 @@ with col2:
 
             # グラフをStreamlitに表示
             st.pyplot(fig)
-
-            # 選択した国の地図を表示
-            if selected_country is not None and not selected_country.empty:
-                st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
-                st.write("選択した国が一番右に表示されています")
-            else:
-                st.write("選択した国がありません")
+            st.write("選択した国が一番右に表示されています")
         else:
             st.write("国を検索してから、国のGDPデータを追加してください。")
