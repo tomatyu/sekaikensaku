@@ -81,7 +81,6 @@ with col2:
             if a in df['Country'].values:
                 idx = df.index[df['Country'] == a][0]
                 bars[idx].set_color('blue')  # 選択された国のバーを青色でハイライト
-                st.write("選択した国が青色で表示されています！")
 
             # 軸ラベルとタイトルの設定
             ax.set_xlabel('Country')
