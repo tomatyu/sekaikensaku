@@ -64,7 +64,9 @@ with col2:
             # GDPの比較用のStreamlitアプリケーションのセットアップ
             st.title('7大国のGDPをバーチャートで表示するアプリ')
 
-        
+            # 生データ表示（オプション）
+            if st.checkbox('生データを表示する'):
+                st.write(df)
 
             # バーチャートのプロット
             st.subheader('7大国のGDPの比較')
@@ -73,7 +75,12 @@ with col2:
             fig, ax = plt.subplots()
 
             # バーチャートのプロット
-            ax.bar(df['Country'], df['GDP'], color='red')  # 青色でバープロットする例
+            bars = ax.bar(df['Country'], df['GDP'], color='red')  # 赤色でバープロットする例
+
+            # 選択された国のバーを青色でハイライト
+            if a in df['Country'].values:
+                idx = df.index[df['Country'] == a][0]
+                bars[idx].set_color('blue')  # 選択された国のバーを青色でハイライト
 
             # 軸ラベルとタイトルの設定
             ax.set_xlabel('Country')
