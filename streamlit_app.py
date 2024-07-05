@@ -88,7 +88,7 @@ with col2:
             st.pyplot(fig)
 
             # 選択した国の地図を表示
-            if not selected_country.empty:
+            if selected_country is not None and not selected_country.empty:
                 st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
                 st.write("選択した国が一番右に表示されています")
         else:
