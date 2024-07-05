@@ -54,7 +54,7 @@ with col1:
 
 # 国のGDP検索ボタン
 with col2:
-    if st.button('国のGDP検索'):
+    if st.button('GDP検索'):
         if 'gdp_data' in st.session_state:
             gdp_data = st.session_state['gdp_data']
 
