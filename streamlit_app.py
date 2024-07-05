@@ -18,7 +18,7 @@ a = st.text_input("国名を入力してください（適用していない国�
 selected_country = countries_df[countries_df["国名"] == a].iloc[0]
 # 初期の7大国のGDPデータを定義する
 gdp_data = {
-    'Country': [selected_country["国名"]],
+    'Country': [selected_country["英語"]],
     'GDP': [selected_country["GDP"]]
 }
 
@@ -71,9 +71,10 @@ if st.button('国のGDP検索'):
         ax.bar(df['Country'][idx], df['GDP'][idx], color='blue')  # 選択された国を青でハイライト
 
     # 軸ラベルとタイトルの設定
-    ax.set_xlabel('国')
-    ax.set_ylabel('GDP（兆ドル単位）')
-    ax.set_title('主要国のGDP')
+    ax.set_xlabel('Country')
+ax.set_ylabel('GDP (trillion dollars)')
+ax.set_title('GDP of Major Countries')
+
 
     # x軸ラベルの回転
     plt.xticks(rotation=45)
