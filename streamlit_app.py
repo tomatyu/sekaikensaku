@@ -77,7 +77,7 @@ ax.set_title('GDP of Major Countries')
 
 
     # x軸ラベルの回転
-    plt.xticks(rotation=45)
+plt.xticks(rotation=45)
 
     # グラフをStreamlitに表示
-    st.pyplot(fig)
+st.pyplot(fig)
