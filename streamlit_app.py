@@ -79,6 +79,6 @@ with col2:
 
             # グラフをStreamlitに表示
             st.pyplot(fig)
-            st.write("選択した国が一番右に表示されています")
+            st.write("選択した国が青色で表示されています")
         else:
             st.write("国を検索してから、国のGDPデータを追加してください。")
