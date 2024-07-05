@@ -75,7 +75,12 @@ with col2:
             fig, ax = plt.subplots()
 
             # バーチャートのプロット
-            ax.bar(df['Country'], df['GDP'], color='red')  # 青色でバープロットする例
+            bars = ax.bar(df['Country'], df['GDP'], color='red')  # 赤色でバープロットする例
+
+            # 選択された国のバーを青色でハイライト
+            if a in df['Country'].values:
+                idx = df.index[df['Country'] == a][0]
+                bars[idx].set_color('blue')  # 選択された国のバーを青色でハイライト
 
             # 軸ラベルとタイトルの設定
             ax.set_xlabel('Country')
