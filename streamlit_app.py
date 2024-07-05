@@ -74,7 +74,7 @@ with col2:
             fig, ax = plt.subplots()
 
             # バーチャートのプロット
-            bars = ax.bar(df['Country'], df['GDP'], color=['red' if c != a else 'blue' for c in df['Country']])  # 赤色でバープロットする例
+            bars = ax.bar(df['Country'], df['GDP'], color='red')  # 赤色でバープロットする例
 
             # 軸ラベルとタイトルの設定
             ax.set_xlabel('Country')
@@ -86,6 +86,10 @@ with col2:
 
             # グラフをStreamlitに表示
             st.pyplot(fig)
-            st.write("選択した国が一番右に表示されています")
+
+            # 選択した国の地図を表示
+            if not selected_country.empty:
+                st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
+                st.write("選択した国が一番右に表示されています")
         else:
             st.write("国を検索してから、国のGDPデータを追加してください。")
