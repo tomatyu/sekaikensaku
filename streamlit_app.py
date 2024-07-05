@@ -24,63 +24,68 @@ gdp_data = {
     'GDP': [21.43, 14.34, 5.08, 3.84, 2.83, 2.71, 2.87]
 }
 
+# 横に並べて表示するための列を作成
+col1, col2 = st.beta_columns(2)
+
 # 国検索ボタン
-if st.button('国検索'):
-    if a.strip() != "":
-        selected_country = countries_df[countries_df["国名"] == a]
+with col1:
+    if st.button('国検索'):
+        if a.strip() != "":
+            selected_country = countries_df[countries_df["国名"] == a]
 
-        if not selected_country.empty:
-            selected_country = selected_country.iloc[0]
-            st.write("国名:", selected_country["国名"])
-            st.write("首都:", selected_country["首都"])
-            st.write("GDP:", selected_country["GDP"])
-            st.write("概要:", selected_country["概要"])
+            if not selected_country.empty:
+                selected_country = selected_country.iloc[0]
+                st.write("国名:", selected_country["国名"])
+                st.write("首都:", selected_country["首都"])
+                st.write("GDP:", selected_country["GDP"])
+                st.write("概要:", selected_country["概要"])
 
-            # 地図表示
-            st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
+                # 地図表示
+                st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
 
-            # 選択された国のGDPデータをgdp_dataに追加する
-            if selected_country["国名"] not in gdp_data['Country']:
-                gdp_data['Country'].append(selected_country["国名"])
-                gdp_data['GDP'].append(selected_country["GDP"])
+                # 選択された国のGDPデータをgdp_dataに追加する
+                if selected_country["国名"] not in gdp_data['Country']:
+                    gdp_data['Country'].append(selected_country["国名"])
+                    gdp_data['GDP'].append(selected_country["GDP"])
 
-            # session_stateに保存
-            st.session_state['gdp_data'] = gdp_data
-        else:
-            st.write("検索結果なし")
+                # session_stateに保存
+                st.session_state['gdp_data'] = gdp_data
+            else:
+                st.write("検索結果なし")
 
 # 国のGDP検索ボタン
-if st.button('国のGDP検索'):
-    if 'gdp_data' in st.session_state:
-        gdp_data = st.session_state['gdp_data']
-        
-        df = pd.DataFrame(gdp_data)
+with col2:
+    if st.button('国のGDP検索'):
+        if 'gdp_data' in st.session_state:
+            gdp_data = st.session_state['gdp_data']
 
-        # GDPの比較用のStreamlitアプリケーションのセットアップ
-        st.title('7大国のGDPをバーチャートで表示するアプリ')
+            df = pd.DataFrame(gdp_data)
 
-        # 生データ表示（オプション）
-        if st.checkbox('生データを表示する'):
-            st.write(df)
+            # GDPの比較用のStreamlitアプリケーションのセットアップ
+            st.title('7大国のGDPをバーチャートで表示するアプリ')
 
-        # バーチャートのプロット
-        st.subheader('7大国のGDPの比較')
+            # 生データ表示（オプション）
+            if st.checkbox('生データを表示する'):
+                st.write(df)
 
-        # 図と軸の作成
-        fig, ax = plt.subplots()
+            # バーチャートのプロット
+            st.subheader('7大国のGDPの比較')
 
-        # バーチャートのプロット
-        ax.bar(df['Country'], df['GDP'], color='red')  # 青色でバープロットする例
+            # 図と軸の作成
+            fig, ax = plt.subplots()
 
-        # 軸ラベルとタイトルの設定
-        ax.set_xlabel('Country')
-        ax.set_ylabel('GDP (trillion dollars)')
-        ax.set_title('GDP of Major Countries')
+            # バーチャートのプロット
+            ax.bar(df['Country'], df['GDP'], color='red')  # 青色でバープロットする例
 
-        # x軸ラベルの回転
-        plt.xticks(rotation=45)
+            # 軸ラベルとタイトルの設定
+            ax.set_xlabel('Country')
+            ax.set_ylabel('GDP (trillion dollars)')
+            ax.set_title('GDP of Major Countries')
 
-        # グラフをStreamlitに表示
-        st.pyplot(fig)
-    else:
-        st.write("国を検索してから、国のGDPデータを追加してください。")
+            # x軸ラベルの回転
+            plt.xticks(rotation=45)
+
+            # グラフをStreamlitに表示
+            st.pyplot(fig)
+        else:
+            st.write("国を検索してから、国のGDPデータを追加してください。")
