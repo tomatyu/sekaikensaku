@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import time
 import matplotlib.pyplot as plt
 
 # データを初期読み込みする
@@ -75,7 +74,7 @@ with col2:
             fig, ax = plt.subplots()
 
             # バーチャートのプロット
-            ax.bar(df['Country'], df['GDP'], color='red')  # 赤色でバープロットする例
+            bars = ax.bar(df['Country'], df['GDP'], color=['red' if c != a else 'blue' for c in df['Country']])  # 赤色でバープロットする例
 
             # 軸ラベルとタイトルの設定
             ax.set_xlabel('Country')
