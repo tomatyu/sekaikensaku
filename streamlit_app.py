@@ -91,5 +91,7 @@ with col2:
             if selected_country is not None and not selected_country.empty:
                 st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
                 st.write("選択した国が一番右に表示されています")
+            else:
+                st.write("選択した国がありません")
         else:
             st.write("国を検索してから、国のGDPデータを追加してください。")
