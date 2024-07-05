@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import time
 import matplotlib.pyplot as plt
 
 # データを初期読み込みする
@@ -55,12 +54,18 @@ with col1:
 
 # 国のGDP検索ボタン
 with col2:
-    if st.button('国のGDP検索'):
+    if st.button('GDP検索'):
         if 'gdp_data' in st.session_state:
             gdp_data = st.session_state['gdp_data']
 
             df = pd.DataFrame(gdp_data)
 
+            # GDPの比較用のStreamlitアプリケーションのセットアップ
+            st.title('7大国のGDPをバーチャートで表示するアプリ')
+
+            # 生データ表示（オプション）
+            if st.checkbox('生データを表示する'):
+                st.write(df)
 
             # バーチャートのプロット
             st.subheader('7大国のGDPの比較')
@@ -71,22 +76,20 @@ with col2:
             # バーチャートのプロット
             bars = ax.bar(df['Country'], df['GDP'], color='red')  # 赤色でバープロットする例
 
-            # 選択された国のバーを青色でハイライト
-            if a in df['Country'].values:
-                idx = df.index[df['Country'] == a][0]
-                bars[idx].set_color('blue')  # 選択された国のバーを青色でハイライト
-
             # 軸ラベルとタイトルの設定
             ax.set_xlabel('Country')
             ax.set_ylabel('GDP (trillion dollars)')
             ax.set_title('GDP of Major Countries')
-            st.write("選択した国が青色で表示されています")
 
             # x軸ラベルの回転
             plt.xticks(rotation=45)
 
             # グラフをStreamlitに表示
             st.pyplot(fig)
-            st.write("選択した国が一番右に表示されています")
+
+            # 選択した国の地図を表示
+            if not selected_country.empty:
+                st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
+                st.write("選択した国が一番右に表示されています")
         else:
             st.write("国を検索してから、国のGDPデータを追加してください。")
