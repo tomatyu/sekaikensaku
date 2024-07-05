@@ -25,7 +25,7 @@ gdp_data = {
 }
 
 # 横に並べて表示するための列を作成
-col1, col2 = st.beta_columns(2)
+col1, col2 = st.columns(2)
 
 # 国検索ボタン
 with col1:
