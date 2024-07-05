@@ -61,12 +61,6 @@ with col2:
 
             df = pd.DataFrame(gdp_data)
 
-            # GDPの比較用のStreamlitアプリケーションのセットアップ
-            st.title('7大国のGDPをバーチャートで表示するアプリ')
-
-            # 生データ表示（オプション）
-            if st.checkbox('生データを表示する'):
-                st.write(df)
 
             # バーチャートのプロット
             st.subheader('7大国のGDPの比較')
@@ -86,6 +80,7 @@ with col2:
             ax.set_xlabel('Country')
             ax.set_ylabel('GDP (trillion dollars)')
             ax.set_title('GDP of Major Countries')
+            st.write("選択した国が青色で表示されています")
 
             # x軸ラベルの回転
             plt.xticks(rotation=45)
