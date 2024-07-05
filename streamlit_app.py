@@ -65,8 +65,7 @@ with col2:
             st.title('7大国のGDPをバーチャートで表示するアプリ')
 
             # 生データ表示（オプション）
-            if st.checkbox('生データを表示する'):
-                st.write(df)
+            
 
             # バーチャートのプロット
             st.subheader('7大国のGDPの比較')
