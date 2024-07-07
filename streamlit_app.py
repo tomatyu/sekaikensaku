@@ -9,7 +9,6 @@ def load_data():
 
 # Streamlitアプリケーションのセットアップ
 st.title("世界検索")
-st.write("好きな国を検索して、:red[知識] を見つけましょう！")
 
 # データフレームを読み込む
 countries_df = load_data()
@@ -24,16 +23,21 @@ gdp_data = {
 }
 
 # sidebarにボタンを配置
-tab = st.sidebar.radio("選択してください", ['国検索', '国のGDP検索'])
+tab = st.sidebar.radio("選択してください", ['ホーム','国検索', '国のGDP検索'])
 
-if tab == '国検索':
+if tab == 'ホーム':
+    st.subheader("世界検索へようこそ！！")
+    st.write("ここでは様々な国を検索することができます")
+    st.write("好きな国を検索して、:red[知識] を見つけましょう！")
+    
+elif tab == '国検索':
     if st.button('国を表示'):
         if a.strip() != "":
             selected_country = countries_df[countries_df["国名"] == a]
 
             if not selected_country.empty:
                 selected_country = selected_country.iloc[0]
-                st.write("国名:", selected_country["国名"]),
+                st.write("国名:", selected_country["国名"])
                 st.write("首都:", selected_country["首都"])
                 st.write("GDP:", selected_country["GDP"],"兆ドル")
                 st.write("概要:", selected_country["概要"])
