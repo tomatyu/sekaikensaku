@@ -34,7 +34,6 @@ elif tab == '国検索':
     if st.button('国を表示'):
         if a.strip() != "":
             selected_country = countries_df[countries_df["国名"] == a]
-
             if not selected_country.empty:
                 selected_country = selected_country.iloc[0]
                 st.write("国名:", selected_country["国名"])
@@ -58,7 +57,6 @@ elif tab == '国検索':
 elif tab == '国のGDP検索':
     st.write("国名を入力してください（適用していない国もあります）")
     a = st.text_input("")
-
     if st.button('国のGDPを表示'):
         if 'gdp_data' in st.session_state:
             gdp_data = st.session_state['gdp_data']
