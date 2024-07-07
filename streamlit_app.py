@@ -37,6 +37,7 @@ if tab == '国検索':
                 st.write("首都:", selected_country["首都"])
                 st.write("GDP:", selected_country["GDP"])
                 st.write("概要:", selected_country["概要"])
+                st.write("英語表記:",selected_country["英語"])
 
                 # 地図表示
                 st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
