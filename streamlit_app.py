@@ -14,7 +14,13 @@ st.title("世界検索")
 countries_df = load_data()
 
 # 入力された国名を取得
-a = ""
+a = st.text_input("国名を入力してください（適用していない国もあります）")
+
+# 初期の7大国のGDPデータを定義する
+gdp_data = {
+    'Country': ['USA', 'China', 'Japan', 'Germany', 'UK', 'France', 'India'],
+    'GDP': [21.43, 14.34, 5.08, 3.84, 2.83, 2.71, 2.87]
+}
 
 # sidebarにボタンを配置
 tab = st.sidebar.radio("選択してください", ['ホーム','国検索', '国のGDP検索'])
@@ -52,6 +58,7 @@ elif tab == '国検索':
                 st.write("検索結果なし")
 
 elif tab == '国のGDP検索':
+    a = st.text_input("国名を入力してください（適用していない国もあります）")
     if st.button('国のGDPを表示'):
         if 'gdp_data' in st.session_state:
             gdp_data = st.session_state['gdp_data']
