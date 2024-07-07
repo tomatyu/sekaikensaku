@@ -30,7 +30,6 @@ if tab == 'ホーム':
 elif tab == '国検索':
     st.write("国名を入力してください（適用していない国もあります）")
     a = st.text_input("")
-
     if st.button('国を表示'):
         if a.strip() != "":
             selected_country = countries_df[countries_df["国名"] == a]
