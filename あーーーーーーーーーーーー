@@ -23,11 +23,10 @@ gdp_data = {
     'GDP': [21.43, 14.34, 5.08, 3.84, 2.83, 2.71, 2.87]
 }
 
-# 横に並べて表示するための列を作成
-col1, col2 = st.columns(2)
+# sidebarにボタンを配置
+tab = st.sidebar.radio("選択してください", ['国検索', '国のGDP検索'])
 
-# 国検索ボタン
-with col1:
+if tab == '国検索':
     if st.button('国検索'):
         if a.strip() != "":
             selected_country = countries_df[countries_df["国名"] == a]
@@ -52,8 +51,7 @@ with col1:
             else:
                 st.write("検索結果なし")
 
-# 国のGDP検索ボタン
-with col2:
+elif tab == '国のGDP検索':
     if st.button('国のGDP検索'):
         if 'gdp_data' in st.session_state:
             gdp_data = st.session_state['gdp_data']
