@@ -23,14 +23,9 @@ gdp_data = {
 }
 
 # sidebarにボタンを配置
-tab = st.sidebar.radio("選択してください", ['ホーム','国検索', '国のGDP検索'])
+tab = st.sidebar.radio("選択してください", ['国検索', '国のGDP検索'])
 
-if tab == 'ホーム':
-    st.subheader("世界検索へようこそ！！")
-    st.write("ここでは様々な国を検索することができます")
-    st.write("好きな国を検索して、:red[知識] を見つけましょう！")
-    
-elif tab == '国検索':
+if tab == '国検索':
     a = st.text_input("国名を入力してください（適用していない国もあります）")
     if st.button('国を表示'):
         if a.strip() != "":
