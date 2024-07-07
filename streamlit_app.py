@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 
 # データを初期読み込みする
 @st.cache
@@ -17,6 +16,12 @@ countries_df = load_data()
 
 # 入力された国名を取得
 a = st.text_input("国名を入力してください（適用していない国もあります）")
+
+# 初期の7大国のGDPデータを定義する
+gdp_data = {
+    'Country': ['USA', 'China', 'Japan', 'Germany', 'UK', 'France', 'India'],
+    'GDP': [21.43, 14.34, 5.08, 3.84, 2.83, 2.71, 2.87]
+}
 
 # 横に並べて表示するための列を作成
 col1, col2 = st.columns(2)
@@ -34,7 +39,7 @@ with col1:
                 st.write("GDP:", selected_country["GDP"])
                 st.write("概要:", selected_country["概要"])
 
-                # 地図表示（単純な円を描画）
+                # 地図表示
                 st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
 
                 # 選択された国のGDPデータをgdp_dataに追加する
