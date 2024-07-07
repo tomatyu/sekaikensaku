@@ -35,7 +35,7 @@ if tab == '国検索':
                 selected_country = selected_country.iloc[0]
                 st.write("国名:", selected_country["国名"])
                 st.write("首都:", selected_country["首都"])
-                st.write("GDP:兆ドル", selected_country["GDP"])
+                st.write("GDP:", selected_country["GDP"]"兆ドル")
                 st.write("概要:", selected_country["概要"])
                 st.write("英語表記:",selected_country["英語"])
 
