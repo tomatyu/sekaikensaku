@@ -56,7 +56,10 @@ elif tab == '国検索':
                 st.write("検索結果なし")
 
 elif tab == '国のGDP検索':
-    if st.button('国のGDP検索'):
+    st.write("国名を入力してください（適用していない国もあります）")
+    a = st.text_input("")
+
+    if st.button('国のGDPを表示'):
         if 'gdp_data' in st.session_state:
             gdp_data = st.session_state['gdp_data']
 
