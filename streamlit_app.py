@@ -24,10 +24,10 @@ gdp_data = {
 }
 
 # sidebarにボタンを配置
-tab = st.sidebar.radio("選択してください", ['国検索', '国のGDP検索'])
+tab = st.sidebar.radio("選択してください", ['国を表示', '国のGDPを表示'])
 
 if tab == '国検索':
-    if st.button('国検索'):
+    if st.button('国を表示'):
         if a.strip() != "":
             selected_country = countries_df[countries_df["国名"] == a]
 
@@ -52,7 +52,7 @@ if tab == '国検索':
                 st.write("検索結果なし")
 
 elif tab == '国のGDP検索':
-    if st.button('国のGDP検索'):
+    if st.button('国のGDPを表示'):
         if 'gdp_data' in st.session_state:
             gdp_data = st.session_state['gdp_data']
 
