@@ -15,7 +15,7 @@ st.write("好きな国を検索して、:red[知識] を見つけましょう！
 countries_df = load_data()
 
 # 入力された国名を取得
-a = st.text_input("国名を入力してください（適用していない国もあります）")
+a = st.text_input("国名を入力してください（適用していない国もあります）", width=300)  # 幅を300に設定
 
 # 初期の7大国のGDPデータを定義する
 gdp_data = {
@@ -28,7 +28,7 @@ col1, col2 = st.columns(2)
 
 # 国検索ボタン
 with col1:
-    if st.button('国検索'):
+    if st.button('国検索', width=150):  # 幅を150に設定
         if a.strip() != "":
             selected_country = countries_df[countries_df["国名"] == a]
 
@@ -54,7 +54,7 @@ with col1:
 
 # 国のGDP検索ボタン
 with col2:
-    if st.button('国のGDP検索'):
+    if st.button('国のGDP検索', width=150):  # 幅を150に設定
         if 'gdp_data' in st.session_state:
             gdp_data = st.session_state['gdp_data']
 
