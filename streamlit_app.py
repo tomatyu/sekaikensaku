@@ -9,9 +9,13 @@ def load_data():
 
 # Streamlitアプリケーションのセットアップ
 st.title("世界検索")
+st.write("好きな国を検索して、:red[知識] を見つけましょう！")
 
 # データフレームを読み込む
 countries_df = load_data()
+
+# 入力された国名を取得
+a = st.text_input("国名を入力してください（適用していない国もあります）")
 
 # 初期の7大国のGDPデータを定義する
 gdp_data = {
@@ -23,8 +27,7 @@ gdp_data = {
 tab = st.sidebar.radio("選択してください", ['国検索', '国のGDP検索'])
 
 if tab == '国検索':
-    a = st.text_input("国名を入力してください（適用していない国もあります）")
-    if st.button('国を表示'):
+    if st.button('国検索'):
         if a.strip() != "":
             selected_country = countries_df[countries_df["国名"] == a]
 
@@ -32,9 +35,8 @@ if tab == '国検索':
                 selected_country = selected_country.iloc[0]
                 st.write("国名:", selected_country["国名"])
                 st.write("首都:", selected_country["首都"])
-                st.write("GDP:", selected_country["GDP"],"兆ドル")
+                st.write("GDP:", selected_country["GDP"])
                 st.write("概要:", selected_country["概要"])
-                st.write("英語表記:", selected_country["英語"])
 
                 # 地図表示
                 st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
@@ -50,11 +52,10 @@ if tab == '国検索':
                 st.write("検索結果なし")
 
 elif tab == '国のGDP検索':
-    if 'gdp_data' in st.session_state:
-        gdp_data = st.session_state['gdp_data']
+    if st.button('国のGDP検索'):
+        if 'gdp_data' in st.session_state:
+            gdp_data = st.session_state['gdp_data']
 
-        a = st.text_input("国名を入力してください（適用していない国もあります）")
-        if st.button('国のGDPを表示'):
             df = pd.DataFrame(gdp_data)
 
             # バーチャートのプロット
@@ -64,17 +65,18 @@ elif tab == '国のGDP検索':
             fig, ax = plt.subplots()
 
             # バーチャートのプロット
-            bars = ax.bar(df['Country'], df['GDP'], color=['blue' if c == a else 'red' for c in df['Country']])  # 選択した国が青色、その他が赤色
+            bars = ax.bar(df['Country'], df['GDP'], color=['red' if c != a else 'blue' for c in df['Country']])  # 赤色でバープロットする例
 
             # 軸ラベルとタイトルの設定
             ax.set_xlabel('Country')
-            ax.set_ylabel('GDP (兆 dollars)')
-            ax.set_title('主要国のGDP')
+            ax.set_ylabel('GDP (trillion dollars)')
+            ax.set_title('GDP of Major Countries')
 
             # x軸ラベルの回転
             plt.xticks(rotation=45)
 
             # グラフをStreamlitに表示
             st.pyplot(fig)
-    else:
-        st.write("国を検索してから、国のGDPデータを追加してください。")
+            st.write("選択した国が青色で表示されています")
+        else:
+            st.write("国を検索してから、国のGDPデータを追加してください。")
