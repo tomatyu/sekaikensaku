@@ -24,7 +24,7 @@ gdp_data = {
 }
 
 # sidebarにボタンを配置
-tab = st.sidebar.radio("選択してください", ['国を表示', '国のGDPを表示'])
+tab = st.sidebar.radio("選択してください", ['国を検索', '国のGDP検索'])
 
 if tab == '国検索':
     if st.button('国を表示'):
