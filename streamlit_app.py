@@ -105,6 +105,6 @@ elif tab == '政治体制検索':
                 # 地図表示
                 st.subheader(f'{b} の地図')
                 locations = pd.DataFrame({'lat': selected_countries["緯度2"], 'lon': selected_countries["経度2"]})
-                st.map(locations, zoom=1)
+                st.map(locations, zoom=0.5)
             else:
                 st.write("検索結果なし")
