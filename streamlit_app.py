@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 def load_data():
     return pd.read_excel("21.xlsx")
 def load_data2():
-    return pd.read_excel("22.xlsx")
+    return pd.read_excel("23.xlsx")
 # Streamlitアプリケーションのセットアップ
 st.title("世界検索")
 st.write("好きな国を検索して、:red[知識] を見つけましょう！")
@@ -109,7 +109,7 @@ elif tab == "政治体制検索":
 
                 # 地図表示
                 st.subheader('国の地図')
-                st.map(pd.DataFrame({'lat': [selected_co["緯度"]], 'lon': [selected_co["経度"]]}), zoom=2)
+                st.map(pd.DataFrame({'lat': [selected_co["緯度2"]], 'lon': [selected_co["経度2"]]}), zoom=2)
             else:
                 st.write("検索結果なし")
     
