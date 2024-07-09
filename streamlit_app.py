@@ -24,7 +24,7 @@ gdp_data = {
 }
 
 # sidebarにボタンを配置
-tab = st.sidebar.radio("選択してください", ['ホーム', '国検索', '国のGDP検索'])
+tab = st.sidebar.radio("選択してください", ['ホーム', '国検索', '国のGDP検索',"政治体制検索"])
 
 if tab == 'ホーム':
     st.subheader("世界検索へようこそ！！")
