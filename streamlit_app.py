@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import matplotlib.pyplot as plt  # matplotlibのインポートが必要
 
 # データを初期読み込みする
 @st.cache
@@ -18,6 +19,9 @@ st.write("好きな国を検索して、:red[知識] を見つけましょう！
 countries_df = load_data()
 countries_df2 = load_data2()
 
+# gdp_dataの初期化
+gdp_data = {'Country': [], 'GDP': []}
+
 # sidebarにボタンを配置
 tab = st.sidebar.radio("選択してください", ['ホーム', '国検索', '国のGDP検索', '政治体制検索'])
 
@@ -30,7 +34,7 @@ elif tab == '国検索':
     a = st.text_input("")
     if st.button('国を表示'):
         if a.strip() != "":
-            selected_country = countries_df[countries_df["国名"] == a]
+            selected_country = countries_df[countries_df["国名"] == a.strip()]
             if not selected_country.empty:
                 selected_country = selected_country.iloc[0]
                 st.write("国名:", selected_country["国名"])
@@ -71,8 +75,8 @@ elif tab == '国のGDP検索':
             bars = ax.bar(df['Country'], df['GDP'])
 
             # 選択した国を強調表示（太字）
-            if a in df['Country'].values:
-                idx = df['Country'].tolist().index(a)
+            if a.strip() in df['Country'].values:
+                idx = df['Country'].tolist().index(a.strip())
                 bars[idx].set_linewidth(2.5)  # 太さを調整する例
 
             # 軸ラベルとタイトルの設定
@@ -93,11 +97,11 @@ elif tab == '政治体制検索':
     st.write("政治体制を選択してください")
     b = st.selectbox("", [
        "共和制", "多党制民主主義", "立憲君主制", "半大統領制", "議院内閣制", "絶対君主制", "準連邦制",
-    "単一政党制", "軍事政権", "混合制","大統領制"
-])
+       "単一政党制", "軍事政権", "混合制","大統領制"
+    ])
     if st.button('国を表示'):
         if b.strip() != "":
-            selected_countries = countries_df2[countries_df2["体制"] == b]
+            selected_countries = countries_df2[countries_df2["体制"] == b.strip()]
 
             if not selected_countries.empty:
                 st.subheader(f"{b} の国々")
