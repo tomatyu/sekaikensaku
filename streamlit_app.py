@@ -70,12 +70,12 @@ elif tab == '国のGDP検索':
             fig, ax = plt.subplots()
 
             # バーチャートのプロット
-            bars = ax.bar(df['Country'], df['GDP'], color='red')
+            bars = ax.bar(df['Country'], df['GDP'])
 
-            # 選択した国を青色にする
+            # 選択した国を強調表示（太字）
             if a in df['Country'].values:
                 idx = df['Country'].tolist().index(a)
-                bars[idx].set_color('blue')
+                bars[idx].set_linewidth(2.5)  # 太さを調整する例
 
             # 軸ラベルとタイトルの設定
             ax.set_xlabel('Country')
@@ -87,6 +87,6 @@ elif tab == '国のGDP検索':
 
             # グラフをStreamlitに表示
             st.pyplot(fig)
-            st.write("選択した国が青色で表示されています")
+            st.write(f"選択した国 '{a}' を太字で表示しています。")
         else:
             st.write("国を検索してから、国のGDPデータを追加してください。")
