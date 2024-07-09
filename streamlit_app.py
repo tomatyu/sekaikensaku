@@ -8,7 +8,7 @@ def load_data():
 
 @st.cache
 def load_data2():
-    return pd.read_excel("24.xlsx")
+    return pd.read_excel("25.xlsx")
 
 # Streamlitアプリケーションのセットアップ
 st.title("世界検索")
@@ -107,6 +107,6 @@ elif tab == '政治体制検索':
                 # 地図表示
                 st.subheader(f'{b} の地図')
                 locations = pd.DataFrame({'lat': selected_countries["緯度2"], 'lon': selected_countries["経度2"]})
-                st.map(locations, zoom=2)
+                st.map(locations, zoom=1)
             else:
                 st.write("検索結果なし")
