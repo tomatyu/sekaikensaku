@@ -103,13 +103,13 @@ elif tab == '政治体制検索':
 ])
     if st.button('国を表示'):
         if b.strip() != "":
-            selected_country = countries_df2[countries_df2["体制"] == b]
-            if not selected_country.empty:
-                selected_country = selected_country.iloc[0]
+            selected_co = countries_df2[countries_df2["体制"] == b]
+            if not selected_co.empty:
+                selected_country = selected_co.iloc[0]
                 
                 # 地図表示
                 st.subheader('国の地図')
-                st.map(pd.DataFrame({'lat': [selected_country["緯度2"]], 'lon': [selected_country["経度2"]]}), zoom=2)
+                st.map(pd.DataFrame({'lat': [selected_co["緯度2"]], 'lon': [selected_co["経度2"]]}), zoom=2)
 
             else:
                 st.write("検索結果なし")
