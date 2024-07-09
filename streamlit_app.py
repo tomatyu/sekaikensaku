@@ -69,7 +69,7 @@ elif tab == '国のGDP検索':
             fig, ax = plt.subplots()
 
             # バーチャートのプロット
-            bars = ax.bar(df['Country'], df['GDP'], color=['red' if c != a else 'blue' for c in df['Country']])  # 赤色でバープロットする例
+            bars = ax.bar(df['Country'], df['GDP'], color=['blue' if c == a else 'red' for c in df['Country']])
 
             # 軸ラベルとタイトルの設定
             ax.set_xlabel('Country')
