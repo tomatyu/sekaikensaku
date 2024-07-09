@@ -102,7 +102,7 @@ elif tab == "政治体制検索":
     "イスラム共和国", "一党制社会主義共和国", "君主制連邦国家"])
     if st.button('国を表示'):
         if b.strip() != "":
-            selected_co = countries_df2[countries_df["国国"] == b]
+            selected_co = countries_df2[countries_df2["体制"] == b]
             if not selected_co.empty:
                 
 
