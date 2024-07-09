@@ -93,23 +93,19 @@ elif tab == '国のGDP検索':
             st.write(f"選択した国 {a} を一番右に表示しています。")
         else:
             st.write("国を検索してから、国のGDPデータを追加してください。")
-elif tab == "政治体制検索":
-    st.write("国名を入力してください（適用していない国もあります）")
-    b = st.selectbox("政治体制を選択してください", [
-    "共和制", "立憲君主制", "半大統領制", "連邦立憲君主制", "大統領制",
-    "単一党制共和制", "半大統領制", "絶対君主制", "一党制社会主義共和国", "議院内閣制",
-    "軍事政権", "多民族国家共和国", "連邦制共和国", "連邦共和制", "軍事政権",
-    "イスラム共和国", "一党制社会主義共和国", "君主制連邦国家"])
+elif tab == '政治体制検索':
+    st.write("政治体制を選択してください")
+    b = st.selectbox("政治体制を選択してください", countries_df2["体制"].unique())
     if st.button('国を表示'):
         if b.strip() != "":
-            selected_co = countries_df2[countries_df2["体制"] == b]
-            selected_country = selected_co.iloc[0]
-            if not selected_co.empty:
+            selected_country = countries_df2[countries_df2["体制"] == b]
+            if not selected_country.empty:
+                selected_country = selected_country.iloc[0]
                 
-
                 # 地図表示
                 st.subheader('国の地図')
-                st.map(pd.DataFrame({'lat': [selected_co["緯度2"]], 'lon': [selected_co["経度2"]]}), zoom=2)
+                st.map(pd.DataFrame({'lat': [selected_country["緯度2"]], 'lon': [selected_country["経度2"]]}), zoom=2)
+
             else:
                 st.write("検索結果なし")
     
