@@ -21,8 +21,8 @@ countries_df2 = load_data2()
 
 # gdp_dataの初期化
 gdp_data = {
-    'Country': ['USA', 'China', 'Japan'],  # 大国のデータを最初から入れておく
-    'GDP': [21.43, 14.34, 5.08]  # トリリオンドル単位でのGDPデータ
+    'Country': ['USA', 'China', 'Japan', 'Germany', 'India'],  # 大国のデータを最初から入れておく
+    'GDP': [21.43, 14.34, 5.08, 3.86, 2.87]  # トリリオンドル単位でのGDPデータ
 }
 
 # sidebarにボタンを配置
