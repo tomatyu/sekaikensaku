@@ -41,6 +41,7 @@ elif tab == '国検索':
                 st.write("概要:", selected_country["概要"])
 
                 # 地図表示
+                st.subheader('国の地図')
                 st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
 
                 # 選択された国のGDPデータをgdp_dataに追加する
@@ -69,7 +70,12 @@ elif tab == '国のGDP検索':
             fig, ax = plt.subplots()
 
             # バーチャートのプロット
-            bars = ax.bar(df['Country'], df['GDP'], color=['blue' if c == a else 'red' for c in df['Country']])
+            bars = ax.bar(df['Country'], df['GDP'], color='red')
+
+            # 選択した国を青色にする
+            if a in df['Country'].values:
+                idx = df['Country'].tolist().index(a)
+                bars[idx].set_color('blue')
 
             # 軸ラベルとタイトルの設定
             ax.set_xlabel('Country')
