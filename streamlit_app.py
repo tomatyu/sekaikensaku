@@ -20,7 +20,10 @@ countries_df = load_data()
 countries_df2 = load_data2()
 
 # gdp_dataの初期化
-gdp_data = {'Country': [], 'GDP': []}
+gdp_data = {
+    'Country': ['USA', 'China', 'Japan'],  # 大国のデータを最初から入れておく
+    'GDP': [21.43, 14.34, 5.08]  # トリリオンドル単位でのGDPデータ
+}
 
 # sidebarにボタンを配置
 tab = st.sidebar.radio("選択してください", ['ホーム', '国検索', '国のGDP検索', '政治体制検索'])
@@ -50,6 +53,9 @@ elif tab == '国検索':
                 if selected_country["国名"] not in gdp_data['Country']:
                     gdp_data['Country'].append(selected_country["国名"])
                     gdp_data['GDP'].append(selected_country["GDP"])
+                else:
+                    idx = gdp_data['Country'].index(selected_country["国名"])
+                    gdp_data['GDP'][idx] = selected_country["GDP"]
 
                 # session_stateに保存
                 st.session_state['gdp_data'] = gdp_data
@@ -66,7 +72,7 @@ elif tab == '国のGDP検索':
             df = pd.DataFrame(gdp_data)
 
             # バーチャートのプロット
-            st.subheader('7大国のGDPの比較')
+            st.subheader('大国のGDPの比較')
 
             # 図と軸の作成
             fig, ax = plt.subplots()
@@ -90,6 +96,7 @@ elif tab == '国のGDP検索':
             # グラフをStreamlitに表示
             st.pyplot(fig)
             st.write(f"選択した国 {a} を一番右に表示しています。")
+
         else:
             st.write("国を検索してから、国のGDPデータを追加してください。")
 
