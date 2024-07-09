@@ -103,6 +103,7 @@ elif tab == "政治体制検索":
     if st.button('国を表示'):
         if b.strip() != "":
             selected_co = countries_df2[countries_df2["体制"] == b]
+            selected_country = selected_co.iloc[0]
             if not selected_co.empty:
                 
 
