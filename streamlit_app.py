@@ -5,14 +5,17 @@ import matplotlib.pyplot as plt
 # データを初期読み込みする
 @st.cache
 def load_data():
-    return pd.read_excel("18.xlsx")
-
+    return pd.read_excel("21.xlsx")
+def load_data2():
+    return pd.read_excel("22.xlsx")
 # Streamlitアプリケーションのセットアップ
 st.title("世界検索")
 st.write("好きな国を検索して、:red[知識] を見つけましょう！")
 
 # データフレームを読み込む
 countries_df = load_data()
+countries_df2 = load_data2()
+
 
 # 初期の7大国のGDPデータを定義する
 gdp_data = {
@@ -87,6 +90,25 @@ elif tab == '国のGDP検索':
 
             # グラフをStreamlitに表示
             st.pyplot(fig)
-            st.write(f"選択した国 '{a}' を太字で表示しています。")
+            st.write(f"選択した国 {a} を一番右に表示しています。")
         else:
             st.write("国を検索してから、国のGDPデータを追加してください。")
+elif tab == "政治体制検索":
+    st.write("国名を入力してください（適用していない国もあります）")
+    b = st.selectbox("政治体制を選択してください", [
+    "共和制", "立憲君主制", "半大統領制", "連邦立憲君主制", "大統領制",
+    "単一党制共和制", "半大統領制", "絶対君主制", "一党制社会主義共和国", "議院内閣制",
+    "軍事政権", "多民族国家共和国", "連邦制共和国", "連邦共和制", "軍事政権",
+    "イスラム共和国", "一党制社会主義共和国", "君主制連邦国家"])
+    if st.button('国を表示'):
+        if b.strip() != "":
+            selected_co = countries_df2[countries_df["体制"] == b]
+            if not selected_co.empty:
+                
+
+                # 地図表示
+                st.subheader('国の地図')
+                st.map(pd.DataFrame({'lat': [selected_co["緯度"]], 'lon': [selected_co["経度"]]}), zoom=2)
+            else:
+                st.write("検索結果なし")
+    
