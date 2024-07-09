@@ -1,95 +1,101 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 
-st.title("$世界歴史検索$")
-a = st.text_input("検索$(現在はアメリカ,中国,日本しか対応していません)$")
-
-st.write("$<検索結果>$") 
-if any([f"{a}" == "アメリカ" for v in a]):
-    # 国名と首都の表示
-   st.write("国名: アメリカ合衆国")
-   st.write("首都: ワシントンDC")
-
-    # データフレームの作成
-   usa_df = pd.DataFrame({
-    'lat': [38.8977],  # ワシントンDCの緯度
-    'lon': [-77.0365]  # ワシントンDCの経度
-   })
-   # 地図へのピンの表示
-   st.map(usa_df,zoom = 1)
-elif any([f"{a}" == "中国" for v in a]):
-     # 国名と首都の表示
-   st.write("国名: 中華人民共和国")
-   st.write("首都: 北京")
-
-    # データフレームの作成
-   cha_df = pd.DataFrame({
-    'lat': [39.9042],  # 北京の緯度
-    'lon': [116.4074]  # 北京の経度
-   })
- 
-     
-    # 地図へのピンの表示
-   st.map(cha_df,zoom = 1)
-elif any([f"{a}" == "日本" for v in a]):
-     # 国名と首都の表示
-   st.write("国名: 日本国")
-   st.write("首都: 東京")
-
-    # データフレームの作成
-   jap_df = pd.DataFrame({
-    'lat': [35.6895],  # 東京の緯度
-    'lon': [139.6917]  # 東京の経度
-   })
- 
-     
-    # 地図へのピンの表示
-   st.map(jap_df,zoom = 1)
-else:
-    st.write("検索結果なし")
-
-
-
-
-
-
-
-
-
-
-
-   import streamlit as st
-import pandas as pd
-import numpy as np
-import openpyxl
-
-# タイトルと説明
-st.title("国名、首都、座標検索")
-a = st.text_input("国名を検索")
-
-# データをロードする
+# データを初期読み込みする
 @st.cache
 def load_data():
-    return pd.read_excel("2345.xlsx")
+    return pd.read_excel("21.xlsx")
 
+@st.cache
+def load_data2():
+    return pd.read_excel("23.xlsx")
+
+# Streamlitアプリケーションのセットアップ
+st.title("世界検索")
+st.write("好きな国を検索して、:red[知識] を見つけましょう！")
+
+# データフレームを読み込む
 countries_df = load_data()
+countries_df2 = load_data2()
 
-# システム的なもの
-selected_country = countries_df[countries_df["国名"] == a].iloc[0]
-usa_df = pd.DataFrame({
-    'lat': [(selected_country["緯度"])],  # 緯度
-    'lon': [(selected_country["経度"])]  # 経度
-   })
+# sidebarにボタンを配置
+tab = st.sidebar.radio("選択してください", ['ホーム', '国検索', '国のGDP検索', '政治体制検索'])
 
-if any(countries_df["国名"] == a):
-    st.write("国名:", selected_country["国名"])
-    st.write("首都:", selected_country["首都"])
-    
-    # st.map() を使用して座標を地図上に表示
-    st.map(usa_df,zoom = 1)
-else:
-    st.write("検索結果なし")
+if tab == 'ホーム':
+    st.subheader("世界検索へようこそ！！")
+    st.write("ここでは様々な国を検索することができます")
 
+elif tab == '国検索':
+    st.write("国名を入力してください（適用していない国もあります）")
+    a = st.text_input("")
+    if st.button('国を表示'):
+        if a.strip() != "":
+            selected_country = countries_df[countries_df["国名"] == a]
+            if not selected_country.empty:
+                selected_country = selected_country.iloc[0]
+                st.write("国名:", selected_country["国名"])
+                st.write("首都:", selected_country["首都"])
+                st.write("GDP:", selected_country["GDP"])
+                st.write("概要:", selected_country["概要"])
 
+                # 地図表示
+                st.subheader('国の地図')
+                st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
 
+            else:
+                st.write("検索結果なし")
+
+elif tab == '国のGDP検索':
+    st.write("国名を入力してください（適用していない国もあります）")
+    a = st.text_input("")
+    if st.button('国のGDPを表示'):
+        if 'gdp_data' in st.session_state:
+            gdp_data = st.session_state['gdp_data']
+
+            df = pd.DataFrame(gdp_data)
+
+            # バーチャートのプロット
+            st.subheader('7大国のGDPの比較')
+
+            # 図と軸の作成
+            fig, ax = plt.subplots()
+
+            # バーチャートのプロット
+            bars = ax.bar(df['Country'], df['GDP'])
+
+            # 選択した国を強調表示（太字）
+            if a in df['Country'].values:
+                idx = df['Country'].tolist().index(a)
+                bars[idx].set_linewidth(2.5)  # 太さを調整する例
+
+            # 軸ラベルとタイトルの設定
+            ax.set_xlabel('Country')
+            ax.set_ylabel('GDP (trillion dollars)')
+            ax.set_title('GDP of Major Countries')
+
+            # x軸ラベルの回転
+            plt.xticks(rotation=45)
+
+            # グラフをStreamlitに表示
+            st.pyplot(fig)
+            st.write(f"選択した国 {a} を一番右に表示しています。")
+        else:
+            st.write("国を検索してから、国のGDPデータを追加してください。")
+
+elif tab == '政治体制検索':
+    st.write("政治体制を選択してください")
+    b = st.selectbox("政治体制を選択してください", countries_df2["体制"].unique())
+    if st.button('国を表示'):
+        if b.strip() != "":
+            selected_co = countries_df2[countries_df2["体制"] == b]
+
+            if not selected_countries.empty:
+                st.subheader(f"{b} の国々")
+                for idx, row in selected_co.iterrows():
+                   
+                    # 地図表示
+                    st.subheader(f'{row["国名2"]} の地図')
+                    locations = pd.DataFrame({'lat': [row["緯度2"]], 'lon': [row["経度2"]]})
+                    st.map(locations, zoom=2)
+            else:
+                st.write("検索結果なし")
