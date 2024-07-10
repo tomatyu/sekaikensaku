@@ -20,7 +20,7 @@ countries = df['国名2'].tolist()
 selected_country = st.selectbox('Select a country', countries)
 
 # 選択した国のデータをフィルタリング
-selected_data = df[df['Country'] == selected_country]
+selected_data = df[df['国名2'] == selected_country]
 
 # グラフの描画
 fig = px.bar(selected_data, x='Country', y='GDP (trillion $)', color='Country',
