@@ -77,8 +77,8 @@ elif tab == '国のGDP検索':
     new_country = st.text_input('新しく追加する国名を入力してください（例: Germany）')
 
     # 新しく追加した国のGDPを取得し、グラフを描画
-    if st.button('国を表示'):
-        if selected_country.strip() != "":
+    
+    if selected_country.strip() != "":
             selected_data = df3[df3['国名2'] == selected_country]
 
             if not selected_data.empty:
