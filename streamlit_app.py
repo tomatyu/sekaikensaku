@@ -2,22 +2,13 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt  # matplotlibのインポートが必要
 
-# データを初期読み込みする
-@st.cache
-def load_data():
-    return pd.read_excel("21.xlsx")
-
-@st.cache
-def load_data2():
-    return pd.read_excel("25.xlsx")
+# データを読み込む
+countries_df = pd.read_excel("21.xlsx")
+countries_df2 = pd.read_excel("25.xlsx")
 
 # Streamlitアプリケーションのセットアップ
 st.title("世界検索")
 st.write("好きな国を検索して、:red[知識] を見つけましょう！")
-
-# データフレームを読み込む
-countries_df = load_data()
-countries_df2 = load_data2()
 
 # gdp_dataの初期化
 gdp_data = {
@@ -76,7 +67,8 @@ elif tab == '国のGDP検索':
             st.subheader('大国のGDPの比較')
 
             # 図と軸の作成
-            fig, ax = plt.subplots()
+            fig = plt.figure()
+            ax = fig.add_subplot()
 
             # バーチャートのプロット
             bars = ax.bar(df['Country'], df['GDP'])
