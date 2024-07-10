@@ -80,11 +80,13 @@ elif tab == '国のGDP検索':
                 bars[idx].set_linewidth(2.5)  # 太さを調整する例
 
                 # 選択した国のGDPをグラフに追加
-                selected_gdp = countries_df3[countries_df3["国名2"] == c.strip()]["GDP3"].iloc[0]
-                ax.bar(c.strip(), selected_gdp, color='red', label=f'{c.strip()} GDP')
+                selected_country_data = countries_df3[countries_df3["国名2"] == c.strip()]
+                if not selected_country_data.empty:
+                    selected_gdp = selected_country_data["GDP3"].iloc[0]
+                    ax.bar(c.strip(), selected_gdp, color='red', label=f'{c.strip()} GDP')
 
-                # グラフのタイトルを更新
-                ax.set_title('GDP of Major Countries including ' + c.strip())
+                    # グラフのタイトルを更新
+                    ax.set_title('GDP of Major Countries including ' + c.strip())
 
             # 軸ラベルとタイトルの設定
             ax.set_xlabel('Country')
