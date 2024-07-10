@@ -19,6 +19,7 @@ st.write("好きな国を検索して、:red[知識] を見つけましょう！
 # データフレームを読み込む
 countries_df = load_data()
 countries_df2 = load_data2()
+df3 = load_data3()
 
 
 # 初期の7大国のGDPデータを定義する
@@ -65,35 +66,35 @@ elif tab == '国のGDP検索':
     st.write('データソース: IMF')
 
 # データを読み込む
-df = load_data3()
+
 
 # データフレームから国のリストを取得
-countries = df['国名2'].tolist()
+    c = df3['国名2'].tolist()
 
 # 選択した国の入力
-selected_country = st.text_input('比較したい国を入力してください（例: USA, China, Japanなど）')
+    d = st.text_input('比較したい国を入力してください（例: USA, China, Japanなど）')
 
 # 選択した国のデータをフィルタリング
-selected_data = df[df['国名2'] == selected_country]
+    e = df3[df3['国名2'] == d]
 
 # 大国のリスト（例として米国、中国、日本を指定）
-major_countries = ['USA', 'China', 'Japan']
+    f = ['USA', 'China', 'Japan']
 
 # 新しく追加する国の入力
-new_country = st.text_input('新しく追加する国名を入力してください（例: Germany）')
+    g = st.text_input('新しく追加する国名を入力してください（例: Germany）')
 
 # 新しく追加した国のGDPを取得
-if new_country:
-    new_data = df[df['国名2'] == new_country]
+if g:
+    new_data = df3[df3['国名2'] == g]
     if not new_data.empty:
         
         # 新旧の国を比較するグラフを描画
-        comparison_data = df[df['国名2'].isin([selected_country, new_country] + major_countries)]
+        comparison_data = df3[df3['国名2'].isin([selected_country, g] + f)]
         fig_comparison = px.bar(comparison_data, x='国名2', y='GDP3', color='国名2',
                                 labels={'GDP3': 'GDP (兆ドル)', '国名2': '国'})
         st.plotly_chart(fig_comparison)
     else:
-        st.write(f"{new_country} のデータが見つかりません。")
+        st.write(f"{g} のデータが見つかりません。")
 elif tab == '政治体制検索':
     st.write("政治体制を選択してください")
     b = st.selectbox("", [
