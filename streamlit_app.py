@@ -14,7 +14,7 @@ st.write('Data Source: IMF')
 df = load_data3()
 
 # データフレームから国のリストを取得
-countries = df['Country'].tolist()
+countries = df['国名2'].tolist()
 
 # ユーザーが選択した国を取得
 selected_country = st.selectbox('Select a country', countries)
