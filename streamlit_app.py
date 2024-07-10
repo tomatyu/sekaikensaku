@@ -82,21 +82,14 @@ elif tab == '国のGDP検索':
     new_country = st.text_input('新しく追加する国名を入力してください（例: Germany）')
 
 # 新しく追加した国のGDPを取得
-if new_country:
-    new_data = df3[df3['国名2'] == new_country]
-    if selected_country.strip() != "":
-            selected_data = df3[df3['国名2'] == selected_country]
-
-            if not selected_data.empty:
-                # 新旧の国を比較するグラフを描画
-                comparison_countries = [selected_country] + gdp_data['Country']
-                comparison_data = df3[df3['国名2'].isin(comparison_countries)]
-                fig_comparison = px.bar(comparison_data, x='国名2', y='GDP3', color='国名2',
-                                        labels={'GDP3': 'GDP (兆ドル)', '国名2': '国'})
-                st.plotly_chart(fig_comparison)
-            else:
-                st.write(f"{selected_country} のデータが見つかりません。")
-
+    if new_country:
+        # 新旧の国を比較するグラフを描画
+        comparison_data = df3[df3['国名2'].isin([selected_country, new_country] + major_countries)]
+        fig_comparison = px.bar(comparison_data, x='国名2', y='GDP3', color='国名2',
+        labels={'GDP3': 'GDP (兆ドル)', '国名2': '国'})
+        st.plotly_chart(fig_comparison)
+    else:
+        st.write(f"{new_country} のデータが見つかりません。")
 elif tab == '政治体制検索':
     st.write("政治体制を選択してください")
     political_system = st.selectbox("", [
