@@ -31,7 +31,7 @@ new_country = st.text_input('新しく追加する国名を入力してくださ
 # 新しく追加した国のGDPを取得
 if new_country:
     new_data = df[df['国名2'] == new_country]
-    if not new_data.empty:
+それを
         
         # 新旧の国を比較するグラフを描画
         comparison_data = df[df['国名2'].isin([selected_country, new_country] + major_countries)]
