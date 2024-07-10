@@ -89,7 +89,7 @@ if g:
     if not new_data.empty:
         
         # 新旧の国を比較するグラフを描画
-        comparison_data = df3[df3['国名2'].isin([selected_country, g] + f)]
+        comparison_data = df3[df3['国名2'].isin([d, g] + f)]
         fig_comparison = px.bar(comparison_data, x='国名2', y='GDP3', color='国名2',
                                 labels={'GDP3': 'GDP (兆ドル)', '国名2': '国'})
         st.plotly_chart(fig_comparison)
