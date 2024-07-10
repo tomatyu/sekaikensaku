@@ -81,11 +81,11 @@ elif tab == '国のGDP検索':
     f = ['USA', 'China', 'Japan']
 
 # 新しく追加する国の入力
-    g = st.text_input('新しく追加する国名を入力してください（例: Germany）')
+    power = st.text_input('新しく追加する国名を入力してください（例: Germany）')
 
 # 新しく追加した国のGDPを取得
-if g:
-    new_data = df3[df3['国名2'] == g]
+if power:
+    new_data = df3[df3['国名2'] == power]
     if not new_data.empty:
         
         # 新旧の国を比較するグラフを描画
