@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 def load_data():
     return pd.read_excel("21.xlsx")
 def load_data2():
-    return pd.read_excel("24.xlsx")
+    return pd.read_excel("25.xlsx")
 # Streamlitアプリケーションのセットアップ
 st.title("世界検索")
 st.write("好きな国を検索して、:red[知識] を見つけましょう！")
