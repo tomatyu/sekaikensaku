@@ -95,24 +95,26 @@ elif tab == '国のGDP検索':
             st.write("国を検索してから、国のGDPデータを追加してください。")
 elif tab == '政治体制検索':
     st.write("政治体制を選択してください")
-    b = st.selectbox("政治体制を選択してください", [
-    "共和制", "立憲君主制", "半大統領制", "連邦立憲君主制", "大統領制",
-    "単一党制共和制", "半大統領制", "絶対君主制", "一党制社会主義共和国", "議院内閣制",
-    "軍事政権", "多民族国家共和国", "連邦制共和国", "連邦共和制", "軍事政権",
-    "イスラム共和国", "一党制社会主義共和国", "君主制連邦国家"
-])
+    b = st.selectbox("", [
+       "共和制", "多党制民主主義", "立憲君主制", "半大統領制", "議院内閣制", "絶対君主制", "準連邦制",
+       "単一政党制", "軍事政権", "混合制","大統領制"
+    ])
     if st.button('国を表示'):
         if b.strip() != "":
-            selected_co = countries_df2[countries_df2["体制"] == b]
+            selected_countries = countries_df2[countries_df2["体制"] == b.strip()]
 
-            if not selected_co.empty:
+            if not selected_countries.empty:
                 st.subheader(f"{b} の国々")
-                for idx, row in selected_co.iterrows():
-                    
 
-                    # 地図表示
-                    st.subheader(f'{row["体制"]} の地図')
-                    locations = pd.DataFrame({'lat': [row["緯度2"]], 'lon': [row["経度2"]]})
-                    st.map(locations, zoom=2)
+                # 選択された政治体制に属する国の表を表示
+                st.write(selected_countries[["国国", "緯度2", "経度2"]])
+
+                # 地図表示
+                st.subheader(f'{b} の地図')
+                locations = pd.DataFrame({'lat': selected_countries["緯度2"], 'lon': selected_countries["経度2"]})
+                st.map(locations, zoom=0.5)
+            else:
                 st.write("検索結果なし")
-    
+
+            # URLのクエリパラメータを更新して現在のタブを保持
+            st.experimental_set_query_params(tab='政治体制検索')
