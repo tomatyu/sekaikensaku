@@ -32,8 +32,6 @@ new_country = st.text_input('新しく追加する国名を入力してくださ
 if new_country:
     new_data = df[df['国名2'] == new_country]
     if not new_data.empty:
-        st.subheader(f'{new_country} のGDP情報')
-        st.write(new_data)
         
         # 新旧の国を比較するグラフを描画
         comparison_data = df[df['国名2'].isin([selected_country, new_country] + major_countries)]
@@ -43,12 +41,3 @@ if new_country:
     else:
         st.write(f"{new_country} のデータが見つかりません。")
 
-# 選択した国のGDPを表示
-if selected_country:
-    if not selected_data.empty:
-        st.subheader(f'{selected_country} のGDP情報')
-        st.write(selected_data)
-    else:
-        st.write(f"{selected_country} のデータが見つかりません。")
-else:
-    st.write("国名を入力してください。")
