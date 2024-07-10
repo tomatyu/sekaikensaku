@@ -51,6 +51,10 @@ elif tab == '国検索':
 
                 # session_stateに保存
                 st.session_state['gdp_data'] = gdp_data
+
+                # URLのクエリパラメータを更新して現在のタブを保持
+                st.experimental_set_query_params(tab='国検索')
+
             else:
                 st.write("検索結果なし")
 
@@ -102,6 +106,9 @@ elif tab == '国のGDP検索':
             st.pyplot(fig)
             st.write(f"選択した国 {c} のGDPをグラフに追加しました。")
 
+            # URLのクエリパラメータを更新して現在のタブを保持
+            st.experimental_set_query_params(tab='国のGDP検索')
+
         else:
             st.write("国を検索してから、国のGDPデータを追加してください。")
 
@@ -127,3 +134,6 @@ elif tab == '政治体制検索':
                 st.map(locations, zoom=0.5)
             else:
                 st.write("検索結果なし")
+
+            # URLのクエリパラメータを更新して現在のタブを保持
+            st.experimental_set_query_params(tab='政治体制検索')
