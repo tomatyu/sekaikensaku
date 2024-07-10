@@ -23,6 +23,6 @@ selected_country = st.selectbox('Select a country', countries)
 selected_data = df[df['国名2'] == selected_country]
 
 # グラフの描画
-fig = px.bar(selected_data, x='国名2', y='GDP (trillion $)', color='Country',
-             labels={'GDP (trillion $)': 'GDP (trillion $)', 'Country': 'Country'})
+fig = px.bar(selected_data, x='国名2', y='GDP (trillion $)', color='GDP3',
+             labels={'GDP (trillion $)': 'GDP (trillion $)', 'Country': 'GDP3'})
 st.plotly_chart(fig)
