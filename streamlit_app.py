@@ -1,14 +1,17 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
 import plotly.express as px
 
 # データを初期読み込みする
 @st.cache
 def load_data():
     return pd.read_excel("21.xlsx")
+
+@st.cache
 def load_data2():
     return pd.read_excel("25.xlsx")
+
+@st.cache
 def load_data3():
     return pd.read_excel("26.xlsx")
 
@@ -21,7 +24,6 @@ countries_df = load_data()
 countries_df2 = load_data2()
 df3 = load_data3()
 
-
 # 初期の7大国のGDPデータを定義する
 gdp_data = {
     'Country': ['USA', 'China', 'Japan', 'Germany', 'UK', 'France', 'India'],
@@ -29,7 +31,7 @@ gdp_data = {
 }
 
 # sidebarにボタンを配置
-tab = st.sidebar.radio("選択してください", ['ホーム', '国検索', '国のGDP検索',"政治体制検索"])
+tab = st.sidebar.radio("選択してください", ['ホーム', '国検索', '国のGDP検索', '政治体制検索'])
 
 if tab == 'ホーム':
     st.subheader("世界検索へようこそ！！")
@@ -65,54 +67,48 @@ elif tab == '国検索':
 elif tab == '国のGDP検索':
     st.write('データソース: IMF')
 
-# データを読み込む
+    # データフレームから国のリストを取得
+    countries_list = df3['国名2'].tolist()
 
+    # 選択した国の入力
+    selected_country = st.text_input('比較したい国を入力してください（例: USA, China, Japanなど）')
 
-# データフレームから国のリストを取得
-    c = df3['国名2'].tolist()
+    # 新しく追加する国の入力
+    new_country = st.text_input('新しく追加する国名を入力してください（例: Germany）')
 
-# 選択した国の入力
-    d = st.text_input('比較したい国を入力してください（例: USA, China, Japanなど）')
+    # 新しく追加した国のGDPを取得し、グラフを描画
+    if st.button('国を表示'):
+        if selected_country.strip() != "":
+            selected_data = df3[df3['国名2'] == selected_country]
 
-# 選択した国のデータをフィルタリング
-    e = df3[df3['国名2'] == d]
+            if not selected_data.empty:
+                # 新旧の国を比較するグラフを描画
+                comparison_countries = [selected_country] + gdp_data['Country']
+                comparison_data = df3[df3['国名2'].isin(comparison_countries)]
+                fig_comparison = px.bar(comparison_data, x='国名2', y='GDP3', color='国名2',
+                                        labels={'GDP3': 'GDP (兆ドル)', '国名2': '国'})
+                st.plotly_chart(fig_comparison)
+            else:
+                st.write(f"{selected_country} のデータが見つかりません。")
 
-# 大国のリスト（例として米国、中国、日本を指定）
-    f = ['USA', 'China', 'Japan']
-
-# 新しく追加する国の入力
-    power = st.text_input('新しく追加する国名を入力してください（例: Germany）')
-
-# 新しく追加した国のGDPを取得
-if power:
-    new_data = df3[df3['国名2'] == power]
-    if not new_data.empty:
-        
-        # 新旧の国を比較するグラフを描画
-        comparison_data = df3[df3['国名2'].isin([d, g] + f)]
-        fig_comparison = px.bar(comparison_data, x='国名2', y='GDP3', color='国名2',
-                                labels={'GDP3': 'GDP (兆ドル)', '国名2': '国'})
-        st.plotly_chart(fig_comparison)
-    else:
-        st.write(f"{g} のデータが見つかりません。")
 elif tab == '政治体制検索':
     st.write("政治体制を選択してください")
-    b = st.selectbox("", [
+    political_system = st.selectbox("", [
        "共和制", "多党制民主主義", "立憲君主制", "半大統領制", "議院内閣制", "絶対君主制", "準連邦制",
-       "単一政党制", "軍事政権", "混合制","大統領制"
+       "単一政党制", "軍事政権", "混合制", "大統領制"
     ])
     if st.button('国を表示'):
-        if b.strip() != "":
-            selected_countries = countries_df2[countries_df2["体制"] == b.strip()]
+        if political_system.strip() != "":
+            selected_countries = countries_df2[countries_df2["体制"] == political_system.strip()]
 
             if not selected_countries.empty:
-                st.subheader(f"{b} の国々")
+                st.subheader(f"{political_system} の国々")
 
                 # 選択された政治体制に属する国の表を表示
                 st.write(selected_countries[["国国", "緯度2", "経度2"]])
 
                 # 地図表示
-                st.subheader(f'{b} の地図')
+                st.subheader(f'{political_system} の地図')
                 locations = pd.DataFrame({'lat': selected_countries["緯度2"], 'lon': selected_countries["経度2"]})
                 st.map(locations, zoom=0.5)
             else:
