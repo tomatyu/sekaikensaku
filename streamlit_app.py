@@ -37,8 +37,8 @@ if new_country:
         
         # 新旧の国を比較するグラフを描画
         comparison_data = df[df['国名2'].isin([selected_country, new_country] + major_countries)]
-        fig_comparison = px.bar(comparison_data, x='国名2', y='GDP (trillion $)', color='国名2',
-                                labels={'GDP (trillion $)': 'GDP (兆ドル)', '国名2': '国'})
+        fig_comparison = px.bar(comparison_data, x='国名2', y='GDP3', color='国名2',
+                                labels={'GDP3': 'GDP (兆ドル)', '国名2': '国'})
         st.plotly_chart(fig_comparison)
     else:
         st.write(f"{new_country} のデータが見つかりません。")
