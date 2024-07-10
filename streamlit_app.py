@@ -76,10 +76,10 @@ elif tab == '国のGDP検索':
     selected_data = df3[df3['国名2'] == selected_country]
 
 # 大国のリスト（例として米国、中国、日本を指定）
-    major_countries = ['USA', 'China', 'Japan']
+    major_countries = ['アメリカ合衆国', '中国', '日本']
 
 # 新しく追加する国の入力
-    new_country = st.text_input('新しく追加する国名を入力してください（例: Germany）')
+    new_country = st.text_input('新しく追加する国名を入力してください（例: ドイツ）')
 
 # 新しく追加した国のGDPを取得
     if new_country:
