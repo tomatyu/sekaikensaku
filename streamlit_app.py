@@ -76,11 +76,11 @@ elif tab == '国のGDP検索':
 
             # 選択した国を強調表示（太字）
             if c.strip() in df['Country'].values:
-                idx = df['Country'].tolist().index(a.strip())
+                idx = df['Country'].tolist().index(c.strip())
                 bars[idx].set_linewidth(2.5)  # 太さを調整する例
 
                 # 選択した国のGDPをグラフに追加
-                selected_gdp = countries_df[countries_df["国名2"] == c.strip()]["GDP3"].iloc[0]
+                selected_gdp = countries_df3[countries_df3["国名2"] == c.strip()]["GDP3"].iloc[0]
                 ax.bar(c.strip(), selected_gdp, color='red', label=f'{c.strip()} GDP')
 
                 # グラフのタイトルを更新
