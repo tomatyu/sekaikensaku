@@ -73,7 +73,7 @@ elif tab == '国のGDP検索':
     # 選択した国の入力
     selected_country = st.text_input('比較したい国を入力してください（例: USA, China, Japanなど）')
 
-    selected_data = df[df['国名2'] == selected_country]
+    selected_data = df3[df3['国名2'] == selected_country]
 
 # 大国のリスト（例として米国、中国、日本を指定）
     major_countries = ['USA', 'China', 'Japan']
