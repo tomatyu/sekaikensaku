@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt  # matplotlibのインポートが必要
+import matplotlib.pyplot as plt
 
 # データを読み込む
 countries_df = pd.read_excel("21.xlsx")
@@ -78,17 +78,26 @@ elif tab == '国のGDP検索':
                 idx = df['Country'].tolist().index(a.strip())
                 bars[idx].set_linewidth(2.5)  # 太さを調整する例
 
+                # 選択した国のGDPをグラフに追加
+                selected_gdp = countries_df[countries_df["国名"] == a.strip()]["GDP"].iloc[0]
+                ax.bar(a.strip(), selected_gdp, color='red', label=f'{a.strip()} GDP')
+
+                # グラフのタイトルを更新
+                ax.set_title('GDP of Major Countries including ' + a.strip())
+
             # 軸ラベルとタイトルの設定
             ax.set_xlabel('Country')
             ax.set_ylabel('GDP (trillion dollars)')
-            ax.set_title('GDP of Major Countries')
+            
+            # 凡例の表示
+            ax.legend()
 
             # x軸ラベルの回転
             plt.xticks(rotation=45)
 
             # グラフをStreamlitに表示
             st.pyplot(fig)
-            st.write(f"選択した国 {a} を一番右に表示しています。")
+            st.write(f"選択した国 {a} のGDPをグラフに追加しました。")
 
         else:
             st.write("国を検索してから、国のGDPデータを追加してください。")
