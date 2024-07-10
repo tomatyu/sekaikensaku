@@ -1,120 +1,28 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
+import plotly.express as px
 
-# データを初期読み込みする
-@st.cache
-def load_data():
-    return pd.read_excel("21.xlsx")
-def load_data2():
-    return pd.read_excel("25.xlsx")
-# Streamlitアプリケーションのセットアップ
-st.title("世界検索")
-st.write("好きな国を検索して、:red[知識] を見つけましょう！")
+# Excelファイルからデータを読み込む関数
+def load_data3():
+    return pd.read_excel("26.xlsx")
 
-# データフレームを読み込む
-countries_df = load_data()
-countries_df2 = load_data2()
+# Streamlitアプリケーションの設定
+st.title('Major Countries GDP Visualization')
+st.write('Data Source: IMF')
 
+# データを読み込む
+df = load_data3()
 
-# 初期の7大国のGDPデータを定義する
-gdp_data = {
-    'Country': ['USA', 'China', 'Japan', 'Germany', 'UK', 'France', 'India'],
-    'GDP': [21.43, 14.34, 5.08, 3.84, 2.83, 2.71, 2.87]
-}
+# データフレームから国のリストを取得
+countries = df['Country'].tolist()
 
-# sidebarにボタンを配置
-tab = st.sidebar.radio("選択してください", ['ホーム', '国検索', '国のGDP検索',"政治体制検索"])
+# ユーザーが選択した国を取得
+selected_country = st.selectbox('Select a country', countries)
 
-if tab == 'ホーム':
-    st.subheader("世界検索へようこそ！！")
-    st.write("ここでは様々な国を検索することができます")
+# 選択した国のデータをフィルタリング
+selected_data = df[df['Country'] == selected_country]
 
-elif tab == '国検索':
-    st.write("国名を入力してください（適用していない国もあります）")
-    a = st.text_input("")
-    if st.button('国を表示'):
-        if a.strip() != "":
-            selected_country = countries_df[countries_df["国名"] == a]
-            if not selected_country.empty:
-                selected_country = selected_country.iloc[0]
-                st.write("国名:", selected_country["国名"])
-                st.write("首都:", selected_country["首都"])
-                st.write("GDP:", selected_country["GDP"])
-                st.write("概要:", selected_country["概要"])
-
-                # 地図表示
-                st.subheader('国の地図')
-                st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
-
-                # 選択された国のGDPデータをgdp_dataに追加する
-                if selected_country["国名"] not in gdp_data['Country']:
-                    gdp_data['Country'].append(selected_country["国名"])
-                    gdp_data['GDP'].append(selected_country["GDP"])
-
-                # session_stateに保存
-                st.session_state['gdp_data'] = gdp_data
-            else:
-                st.write("検索結果なし")
-
-elif tab == '国のGDP検索':
-    st.write("国名を入力してください（適用していない国もあります）")
-    a = st.text_input("")
-    if st.button('国のGDPを表示'):
-        if 'gdp_data' in st.session_state:
-            gdp_data = st.session_state['gdp_data']
-
-            df = pd.DataFrame(gdp_data)
-
-            # バーチャートのプロット
-            st.subheader('7大国のGDPの比較')
-
-            # 図と軸の作成
-            fig, ax = plt.subplots()
-
-            # バーチャートのプロット
-            bars = ax.bar(df['Country'], df['GDP'])
-
-            # 選択した国を強調表示（太字）
-            if a in df['Country'].values:
-                idx = df['Country'].tolist().index(a)
-                bars[idx].set_linewidth(2.5)  # 太さを調整する例
-
-            # 軸ラベルとタイトルの設定
-            ax.set_xlabel('Country')
-            ax.set_ylabel('GDP (trillion dollars)')
-            ax.set_title('GDP of Major Countries')
-
-            # x軸ラベルの回転
-            plt.xticks(rotation=45)
-
-            # グラフをStreamlitに表示
-            st.pyplot(fig)
-            st.write(f"選択した国 {a} を一番右に表示しています。")
-        else:
-            st.write("国を検索してから、国のGDPデータを追加してください。")
-elif tab == '政治体制検索':
-    st.write("政治体制を選択してください")
-    b = st.selectbox("", [
-       "共和制", "多党制民主主義", "立憲君主制", "半大統領制", "議院内閣制", "絶対君主制", "準連邦制",
-       "単一政党制", "軍事政権", "混合制","大統領制"
-    ])
-    if st.button('国を表示'):
-        if b.strip() != "":
-            selected_countries = countries_df2[countries_df2["体制"] == b.strip()]
-
-            if not selected_countries.empty:
-                st.subheader(f"{b} の国々")
-
-                # 選択された政治体制に属する国の表を表示
-                st.write(selected_countries[["国国", "緯度2", "経度2"]])
-
-                # 地図表示
-                st.subheader(f'{b} の地図')
-                locations = pd.DataFrame({'lat': selected_countries["緯度2"], 'lon': selected_countries["経度2"]})
-                st.map(locations, zoom=0.5)
-            else:
-                st.write("検索結果なし")
-
-            # URLのクエリパラメータを更新して現在のタブを保持
-            st.experimental_set_query_params(tab='政治体制検索')
+# グラフの描画
+fig = px.bar(selected_data, x='Country', y='GDP (trillion $)', color='Country',
+             labels={'GDP (trillion $)': 'GDP (trillion $)', 'Country': 'Country'})
+st.plotly_chart(fig)
