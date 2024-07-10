@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 # データを読み込む
 countries_df = pd.read_excel("21.xlsx")
 countries_df2 = pd.read_excel("25.xlsx")
+countries_df3 = pd.read_excel("26.xlsx")
 
 # Streamlitアプリケーションのセットアップ
 st.title("世界検索")
@@ -56,7 +57,7 @@ elif tab == '国検索':
 elif tab == '国のGDP検索':
     st.subheader('国のGDP検索')
     st.write("国名を入力してください（適用していない国もあります）")
-    a = st.text_input("")
+    c = st.text_input("")
     if st.button('国のGDPを表示'):
         if 'gdp_data' in st.session_state:
             gdp_data = st.session_state['gdp_data']
@@ -74,16 +75,16 @@ elif tab == '国のGDP検索':
             bars = ax.bar(df['Country'], df['GDP'])
 
             # 選択した国を強調表示（太字）
-            if a.strip() in df['Country'].values:
+            if c.strip() in df['Country'].values:
                 idx = df['Country'].tolist().index(a.strip())
                 bars[idx].set_linewidth(2.5)  # 太さを調整する例
 
                 # 選択した国のGDPをグラフに追加
-                selected_gdp = countries_df[countries_df["国名"] == a.strip()]["GDP"].iloc[0]
-                ax.bar(a.strip(), selected_gdp, color='red', label=f'{a.strip()} GDP')
+                selected_gdp = countries_df[countries_df["国名2"] == c.strip()]["GDP3"].iloc[0]
+                ax.bar(c.strip(), selected_gdp, color='red', label=f'{c.strip()} GDP')
 
                 # グラフのタイトルを更新
-                ax.set_title('GDP of Major Countries including ' + a.strip())
+                ax.set_title('GDP of Major Countries including ' + c.strip())
 
             # 軸ラベルとタイトルの設定
             ax.set_xlabel('Country')
@@ -97,7 +98,7 @@ elif tab == '国のGDP検索':
 
             # グラフをStreamlitに表示
             st.pyplot(fig)
-            st.write(f"選択した国 {a} のGDPをグラフに追加しました。")
+            st.write(f"選択した国 {c} のGDPをグラフに追加しました。")
 
         else:
             st.write("国を検索してから、国のGDPデータを追加してください。")
