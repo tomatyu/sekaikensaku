@@ -4,16 +4,17 @@ import plotly.express as px
 
 # データを初期読み込みする
 @st.cache
+# 地図表示
 def load_data():
-    return pd.read_excel("21.xlsx")
-
+    return pd.read_excel("28.xlsx")
+# 政治体制を表示
 @st.cache
 def load_data2():
     return pd.read_excel("25.xlsx")
-
+# GDPを表示
 @st.cache
 def load_data3():
-    return pd.read_excel("26.xlsx")
+    return pd.read_excel("27.xlsx")
 
 # Streamlitアプリケーションのセットアップ
 st.title("世界検索")
