@@ -26,7 +26,7 @@ df3 = load_data3()
 
 # 初期の7大国のGDPデータを定義する
 gdp_data = {
-    'Country': ['USA', 'China', 'Japan', 'Germany', 'UK', 'France', 'India'],
+    'Country': ['アメリカ合衆国', '中国', '日本', 'ドイツ', 'イギリス', 'フランス', 'インド'],
     'GDP': [21.43, 14.34, 5.08, 3.84, 2.83, 2.71, 2.87]
 }
 
