@@ -1,57 +1,41 @@
 import streamlit as st
 import pandas as pd
 
-# Sample countries dataframe (replace this with your actual data)
-countries_data = {
-    "国名": ["Japan", "United States", "China"],
-    "首都": ["Tokyo", "Washington D.C.", "Beijing"],
-    "GDP": [5081, 21433, 14342],  # Example GDP values
-    "概要": ["Japan overview", "US overview", "China overview"],
-    "緯度": [35.6895, 38.8951, 39.9042],  # Example latitude values
-    "経度": [139.6917, -77.0364, 116.4074]  # Example longitude values
-}
+# Function to load data from Excel file
+def load_data():
+    return pd.read_excel("28.xlsx")
 
-countries_df = pd.DataFrame(countries_data)
+# Load data from Excel file
+countries_df = load_data()
 
-# Initialize GDP data (if not already initialized)
-if 'gdp_data' not in st.session_state:
-    st.session_state['gdp_data'] = {'Country': [], 'GDP': []}
+# Initialize a list to store visited countries
+visited_countries = []
 
-elif tab == '国検索':
-    st.write("国名を入力してください（適用していない国もあります）")
-    a = st.text_input("")
-    
-    if st.button('国を表示'):
-        if a.strip() != "":
-            selected_country = countries_df[countries_df["国名"] == a]
-            
-            if not selected_country.empty:
-                selected_country = selected_country.iloc[0]
-                st.write("国名:", selected_country["国名"])
-                st.write("首都:", selected_country["首都"])
-                st.write("GDP:", selected_country["GDP"])
-                st.write("概要:", selected_country["概要"])
+# Function to display map and handle game logic
+def display_map_and_game():
+    st.subheader('国の地図を表示してください')
+    selected_country = st.selectbox("国を選択してください", countries_df["国名"])
 
-                # 地図表示
-                st.subheader('国の地図')
-                st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=4)
+    if st.button('地図を表示'):
+        country_data = countries_df[countries_df["国名"] == selected_country]
+        st.map(pd.DataFrame({'lat': [country_data["緯度"].values[0]],
+                             'lon': [country_data["経度"].values[0]]}), zoom=4)
+        
+        # Game section
+        st.write("この国の首都は何ですか？")
+        capital_guess = st.text_input("首都の名前を入力してください")
 
-                # 選択された国のGDPデータをgdp_dataに追加する
-                if selected_country["国名"] not in st.session_state['gdp_data']['Country']:
-                    st.session_state['gdp_data']['Country'].append(selected_country["国名"])
-                    st.session_state['gdp_data']['GDP'].append(selected_country["GDP"])
+        if capital_guess.strip().lower() == country_data["首都"].values[0].lower():
+            st.write("正解です！")
+            if selected_country not in visited_countries:
+                visited_countries.append(selected_country)
+        else:
+            st.write("残念、不正解です。正解は:", country_data["首都"].values[0])
 
-                # ゲームの部分
-                st.write("次の国の首都を当ててください！")
-                capital_guess = st.text_input("首都の名前を入力してください")
-                
-                if capital_guess.strip().lower() == selected_country["首都"].lower():
-                    st.write("正解です！")
-                else:
-                    st.write("残念、不正解です。正解は:", selected_country["首都"])
+# Main part of the app
+st.write("国を選んで地図を表示し、その首都を当てるゲームです。")
 
-            else:
-                st.write("検索結果なし")
-
-# Display collected GDP data
-st.write("収集されたGDPデータ:", st.session_state['gdp_data'])
+if len(visited_countries) < len(countries_df):
+    display_map_and_game()
+else:
+    st.write("すべての国を訪れました！おめでとうございます！")
