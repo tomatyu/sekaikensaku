@@ -40,8 +40,8 @@ def display_map_and_game():
     st.write("この国はどこでしょう？")
     user_answer = st.text_input("国名を入力してください", user_answer)
     
-    # Display answer button
-    if st.button('回答する'):
+    # Check answer when user presses Enter (carriage return)
+    if st.text_input("Press Enter to submit your answer") == user_answer:
         if user_answer.strip().lower() == correct_answer.lower():
             st.write("正解です！")
             if correct_answer not in visited_countries:
