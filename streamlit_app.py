@@ -42,13 +42,18 @@ def display_map_and_game():
     
     # Check answer when user submits
     if st.button('回答する'):
-        if user_answer.strip().lower() == correct_answer.lower():
-            st.write("正解です！")
-            if correct_answer not in visited_countries:
-                visited_countries.append(correct_answer)
-            initialize_game()  # Reset for the next question
-        else:
-            st.write(f"残念、不正解です。正解は: {correct_answer}")
+        check_answer()
+
+def check_answer():
+    global user_answer
+    
+    if user_answer.strip().lower() == correct_answer.lower():
+        st.write("正解です！")
+        if correct_answer not in visited_countries:
+            visited_countries.append(correct_answer)
+        initialize_game()  # Reset for the next question
+    else:
+        st.write(f"残念、不正解です。正解は: {correct_answer}")
 
 # Main part of the app
 st.title("地図を問題にして国名を当てるゲーム")
