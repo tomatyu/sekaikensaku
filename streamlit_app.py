@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import random
 
 # Function to load data from Excel file
 def load_data():
@@ -13,34 +14,31 @@ visited_countries = []
 
 # Function to display map and handle game logic
 def display_map_and_game():
-    st.subheader('国の地図を表示してください')
+    st.subheader('地図を問題にして国名を当てるゲームです')
     
-    # Ask the user to input a country name
-    country_name = st.text_input("国名を入力してください")
+    # Randomly select a country from the dataframe
+    random_country = random.choice(countries_df["国名"].tolist())
     
-    if st.button('地図を表示'):
-        # Check if the input country exists in the data
-        country_data = countries_df[countries_df["国名"] == country_name]
-        
-        if not country_data.empty:
-            st.map(pd.DataFrame({'lat': [country_data["緯度"].values[0]],
-                                 'lon': [country_data["経度"].values[0]]}), zoom=4)
-            
-            # Game section
-            st.write("この国の首都は何ですか？")
-            capital_guess = st.text_input("首都の名前を入力してください")
-
-            if capital_guess.strip().lower() == country_data["首都"].values[0].lower():
-                st.write("正解です！")
-                if country_name not in visited_countries:
-                    visited_countries.append(country_name)
-            else:
-                st.write("残念、不正解です。正解は:", country_data["首都"].values[0])
-        else:
-            st.write("国名が見つかりませんでした。正しい国名を入力してください。")
+    # Retrieve country data
+    country_data = countries_df[countries_df["国名"] == random_country]
+    
+    # Display map for the selected country
+    st.map(pd.DataFrame({'lat': [country_data["緯度"].values[0]],
+                         'lon': [country_data["経度"].values[0]]}), zoom=4)
+    
+    # Game section
+    st.write("この国はどこでしょう？")
+    country_guess = st.text_input("国名を入力してください")
+    
+    if country_guess.strip().lower() == random_country.lower():
+        st.write("正解です！")
+        if random_country not in visited_countries:
+            visited_countries.append(random_country)
+    else:
+        st.write("残念、不正解です。正解は:", random_country)
 
 # Main part of the app
-st.write("国の地図を表示し、その首都を当てるゲームです。")
+st.write("地図を問題にして国名を当てるゲームです。")
 
 if len(visited_countries) < len(countries_df):
     display_map_and_game()
