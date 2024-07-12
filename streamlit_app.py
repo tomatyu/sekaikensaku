@@ -35,7 +35,7 @@ gdp_data = {
 tab = st.sidebar.radio("選択してください", ['ホーム', '国検索', '国のGDP検索', '政治体制検索'])
 
 if tab == 'ホーム':
-    st.subheader("世界検索へようこそ！！")
+    st.write(":[世界検索へようこそ！！]")
     st.write("ここでは様々な国を検索することができます")
 
 elif tab == '国検索':
