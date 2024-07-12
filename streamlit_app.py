@@ -40,8 +40,8 @@ def display_map_and_game():
     st.write("この国はどこでしょう？")
     user_answer = st.text_input("国名を入力してください", user_answer)
     
-    # Check answer when user presses Enter (carriage return)
-    if st.text_input("Press Enter to submit your answer") == user_answer:
+    # Check answer when user submits
+    if st.button('回答する'):
         if user_answer.strip().lower() == correct_answer.lower():
             st.write("正解です！")
             if correct_answer not in visited_countries:
@@ -51,7 +51,7 @@ def display_map_and_game():
             st.write(f"残念、不正解です。正解は: {correct_answer}")
 
 # Main part of the app
-st.write("地図を問題にして国名を当てるゲームです。")
+st.title("地図を問題にして国名を当てるゲーム")
 
 if len(visited_countries) < len(countries_df):
     if random_country is None:
