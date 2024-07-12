@@ -1,29 +1,47 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
+import numpy as np
+import pydeck as pdk
 
-def load_data4():
-    return pd.read_excel("30.xlsx")
-
-# Excelファイルからデータを読み込む
-data = load_data4()
+# ダミーデータの生成
+np.random.seed(0)
+chart_data = pd.DataFrame(
+    np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
+    columns=['lat', 'lon']
+)
 
 # Streamlitアプリケーションの作成
-st.title('Population Trends')
+st.title('PyDeck Demo')
 
-# データフレームの先頭部分を表示（確認用）
-st.write(data.head())
-
-# グラフの描画
-country = st.selectbox('国名を選択してください', data['国国国'].unique())
-filtered_data = data[data['国国国'] == country]
-
-if not filtered_data.empty:
-    plt.figure(figsize=(10, 6))
-    plt.plot(filtered_data.index, filtered_data['人口'], marker='o')  # indexを使って時系列の順序でプロット
-    plt.xlabel('データポイント')
-    plt.ylabel('人口')
-    plt.title(f'{country} の人口推移')
-    st.pyplot(plt)
-else:
-    st.write(f'{country} に関するデータはありません。')
+# PyDeckを使用して地図を表示
+st.pydeck_chart(pdk.Deck(
+    map_style="mapbox://styles/mapbox/light-v9",
+    initial_view_state=pdk.ViewState(
+        latitude=37.76,
+        longitude=-122.4,
+        zoom=11,
+        pitch=50,
+    ),
+    layers=[
+        # HexagonLayerでデータを表示
+        pdk.Layer(
+            'HexagonLayer',
+            data=chart_data,
+            get_position='[lon, lat]',
+            radius=200,
+            elevation_scale=4,
+            elevation_range=[0, 1000],
+            pickable=True,
+            extruded=True,
+        ),
+        # ScatterplotLayerでデータを表示
+        pdk.Layer(
+            'ScatterplotLayer',
+            data=chart_data,
+            get_position='[lon, lat]',
+            get_color='[200, 30, 0, 160]',
+            get_radius=200,
+            pickable=True,
+        ),
+    ],
+))
