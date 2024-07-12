@@ -81,7 +81,7 @@ elif tab == '国のGDP検索':
 
 # 新しく追加する国の入力
     new_country = st.text_input('新しく追加する国名を入力してください（例: ドイツ）')
-    st.write(":blue[二つの国を必ず入力してください。]")
+    st.write(":red[二つの国を必ず入力してください。]")
 
 # 新しく追加した国のGDPを取得
     if new_country:
