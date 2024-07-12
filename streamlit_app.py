@@ -24,7 +24,7 @@ def initialize_game():
     random_country = random.choice(countries_df["国名"].tolist())
     country_data = countries_df[countries_df["国名"] == random_country]
     correct_answer = random_country
-    user_answer = None
+    user_answer = ""
 
 # Function to display map and handle game logic
 def display_map_and_game():
@@ -38,7 +38,7 @@ def display_map_and_game():
     
     # Display game prompt and input field
     st.write("この国はどこでしょう？")
-    user_answer = st.text_input("国名を入力してください")
+    user_answer = st.text_input("国名を入力してください", user_answer)
     
     # Display answer button
     if st.button('回答する'):
