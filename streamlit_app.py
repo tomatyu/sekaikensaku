@@ -15,8 +15,8 @@ st.title('Population Trends')
 st.write(data.head())
 
 # グラフの描画
-country = st.selectbox('国名を選択してください', data['国名'].unique())
-filtered_data = data[data['国名'] == country]
+country = st.selectbox('国名を選択してください', data['国国国'].unique())
+filtered_data = data[data['国国国'] == country]
 
 if not filtered_data.empty:
     plt.figure(figsize=(10, 6))
