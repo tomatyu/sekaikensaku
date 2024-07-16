@@ -1,8 +1,23 @@
 import streamlit as st
 
-prompt = st.chat_input("Say something")
+# 過去の入力を保持するリスト
+past_prompts = []
 
-if prompt:
-    paragraphs = prompt.split("\n")  # 改行文字でテキストを分割する
-    for paragraph in paragraphs:
-        st.write(f"User has sent the following prompt: {paragraph}")  # 各段落を新しい段落として表示する
+while True:
+    # チャットインプットでユーザーからの入力を受け取る
+    prompt = st.text_input("Say something")
+
+    # 入力があれば過去の入力リストに追加
+    if prompt:
+        past_prompts.append(prompt)
+
+    # 過去の入力を段落ごとに表示
+    for past_prompt in past_prompts:
+        st.write(f"User has sent the following prompt: {past_prompt}")
+
+    # 改行を挿入して区切りをつける
+    st.markdown("---")
+
+    # ブレーク条件
+    if not st.button("Continue"):
+        break
