@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-def key(text):
+def right_aligned_bubble(selected_country):
     bubble_style = '''
         <style>
             .bubble {
@@ -29,7 +29,10 @@ def key(text):
     bubble_html = f'''
         <div class="bubble">
             <div style="text-align: left;">
-                {text}
+                <b>国名:</b> {selected_country["国名"]} <br>
+                <b>首都:</b> {selected_country["首都"]} <br>
+                <b>GDP:</b> {selected_country["GDP"]} <br>
+                <b>概要:</b> {selected_country["概要"]} <br>
             </div>
         </div>
     '''
@@ -80,19 +83,21 @@ elif option == '国の詳細検索':
     country_name = st.chat_input("国を検索してください")
     if country_name.strip() != "国を検索してください":
             selected_country = countries_df[countries_df["国名"] == country_name]
-            if not selected_country.empty:
-                selected_country = selected_country.iloc[0]
-                st.write(key("国名:", selected_country["国名"]))
-                st.write(key("首都:", selected_country["首都"]))
-                st.write(key("GDP:", selected_country["GDP"]))
-                st.write(key("概要:", selected_country["概要"]))
+            selected_country = {
+    "国名": "日本",
+    "首都": "東京",
+    "GDP": "5兆ドル",
+    "概要": "日本はアジアの島国で、先進的な経済と文化があります。"
+}
 
+    if selected_country:  # selected_countryが空でない場合のみ吹き出しを表示
+            right_aligned_bubble(selected_country)
                 # 地図表示
-                st.subheader('国の地図')
-                st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
+            st.subheader('国の地図')
+            st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
 
                 # 選択された国のGDPデータをgdp_dataに追加する
-                if selected_country["国名"] not in gdp_data['Country']:
+            if selected_country["国名"] not in gdp_data['Country']:
                     gdp_data['Country'].append(selected_country["国名"])
                     gdp_data['GDP'].append(selected_country["GDP"])
 
