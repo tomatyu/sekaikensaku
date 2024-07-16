@@ -101,9 +101,9 @@ elif option == '国の詳細検索':
                     gdp_data['Country'].append(selected_country["国名"])
                     gdp_data['GDP'].append(selected_country["GDP"])
 
-                st.session_state['gdp_data'] = gdp_data
-            else:
-                st.write("検索結果なし")
+            st.session_state['gdp_data'] = gdp_data
+    else:
+            st.write("検索結果なし")
 
 elif option == '国のGDP検索':
     st.write('データソース: IMF')
