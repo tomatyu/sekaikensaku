@@ -82,10 +82,10 @@ elif option == '国の詳細検索':
             selected_country = countries_df[countries_df["国名"] == country_name]
             if not selected_country.empty:
                 selected_country = selected_country.iloc[0]
-                st.write("国名:", selected_country["国名"])
-                st.write("首都:", selected_country["首都"])
-                st.write("GDP:", selected_country["GDP"])
-                st.write("概要:", selected_country["概要"])
+                key("国名:", selected_country["国名"])
+                key("首都:", selected_country["首都"])
+                key("GDP:", selected_country["GDP"])
+                key("概要:", selected_country["概要"])
 
                 # 地図表示
                 st.subheader('国の地図')
