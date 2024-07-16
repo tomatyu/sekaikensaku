@@ -11,11 +11,12 @@ prompt = st.text_area("Chat with ChatGPT", value="", height=150)
 if st.button("Send"):
     if prompt:
         # OpenAI APIを使用して応答を生成する
-        response = openai.Completion.create(
-            engine="text-davinci-002",
-            prompt=prompt,
-            max_tokens=50
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",  # 使用するモデルを指定します
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
         )
         
         # 応答を表示する
-        st.text_area("ChatGPT's response", value=response.choices[0].text.strip(), height=150)
+        st.text_area("ChatGPT's response", value=response['choices'][0]['message']['content'], height=150)
