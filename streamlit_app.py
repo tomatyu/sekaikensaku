@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-def right_aligned_bubble(selected_country):
+def key(selected_country):
     bubble_style = '''
         <style>
             .bubble {
@@ -91,7 +91,7 @@ elif option == '国の詳細検索':
 }
 
     if selected_country:  # selected_countryが空でない場合のみ吹き出しを表示
-            right_aligned_bubble(selected_country)
+            key(selected_country)
                 # 地図表示
             st.subheader('国の地図')
             st.map(pd.DataFrame({'lat': [selected_country["緯度"]], 'lon': [selected_country["経度"]]}), zoom=2)
