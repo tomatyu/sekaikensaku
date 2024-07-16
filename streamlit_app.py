@@ -44,8 +44,8 @@ if option == 'ホーム':
 
 elif option == '国の詳細検索':
     st.write("国名を入力してください（適用していない国もあります）")
-    a = st.chat_input("国を検索してください")
-    if a.strip() != "国を検索してください":
+    country_name = st.chat_input("国を検索してください")
+    if country_name.strip() != "国を検索してください":
             selected_country = countries_df[countries_df["国名"] == country_name]
             if not selected_country.empty:
                 selected_country = selected_country.iloc[0]
