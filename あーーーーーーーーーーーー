@@ -35,8 +35,9 @@ gdp_data = {
 tab = st.sidebar.radio("選択してください", ['ホーム', '国検索', '国のGDP検索', '政治体制検索'])
 
 if tab == 'ホーム':
-    st.subheader("世界検索へようこそ！！")
+    st.write(":blue[世界検索へようこそ！！]")
     st.write("ここでは様々な国を検索することができます")
+    st.write("早速、左のタブから選択して楽しみましょう！！")
 
 elif tab == '国検索':
     st.write("国名を入力してください（適用していない国もあります）")
@@ -81,6 +82,7 @@ elif tab == '国のGDP検索':
 
 # 新しく追加する国の入力
     new_country = st.text_input('新しく追加する国名を入力してください（例: ドイツ）')
+    st.write(":red[二つの国を必ず入力してください。]")
 
 # 新しく追加した国のGDPを取得
     if new_country:
