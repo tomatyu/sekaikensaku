@@ -5,6 +5,7 @@ import time
 
 def main():
     st.title("現在時刻を表示するアプリ")
+    st.wrie("じこーーーーーーーーーく")
 
     # 日本時間のタイムゾーンを設定
     japan_tz = pytz.timezone('Asia/Tokyo')
