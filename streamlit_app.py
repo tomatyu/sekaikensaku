@@ -1,9 +1,9 @@
 import streamlit as st
-from datetime import datetime, timedelta
+from datetime import datetime
 import pytz
 
 def main():
-    st.title("3時間前の時刻を表示するアプリ")
+    st.title("現在時刻を表示するアプリ")
 
     # 日本時間のタイムゾーンを設定
     japan_tz = pytz.timezone('Asia/Tokyo')
@@ -11,13 +11,10 @@ def main():
     while True:
         # 現在時刻を日本時間で取得
         now = datetime.now(japan_tz)
-
-        # 3時間前の時刻を計算
-        time_3hours_ago = now - timedelta(hours=3)
-        current_time = time_3hours_ago.strftime("%Y/%m/%d %H:%M:%S")
+        current_time = now.strftime("%Y/%m/%d %H:%M:%S")
 
         # 時刻を表示
-        st.write("3時間前の日本時間は:", current_time)
+        st.write("現在の日本時間は:", current_time)
 
         # 1秒ごとに更新
         time.sleep(1)
