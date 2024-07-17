@@ -1,6 +1,7 @@
 import streamlit as st
 from datetime import datetime
 import pytz
+import time
 
 def main():
     st.title("現在時刻を表示するアプリ")
