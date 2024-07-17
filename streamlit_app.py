@@ -1,24 +1,22 @@
 import streamlit as st
-from datetime import datetime
-import pytz
 import time
+from datetime import datetime
 
 def main():
-    st.title("現在時刻を表示するアプリ")
-    st.wrie("じこーーーーーーーーーく")
+    st.title("リアルタイム時刻表示アプリ")
 
-    # 日本時間のタイムゾーンを設定
-    japan_tz = pytz.timezone('Asia/Tokyo')
+    # 初期の時刻表示用の空のコンポーネントを作成
+    time_placeholder = st.empty()
 
     while True:
-        # 現在時刻を日本時間で取得
-        now = datetime.now(japan_tz)
+        # 現在時刻を取得
+        now = datetime.now()
         current_time = now.strftime("%Y/%m/%d %H:%M:%S")
 
-        # 時刻を表示
-        st.write("現在の日本時間は:", current_time)
+        # 時刻を更新
+        time_placeholder.text(f"現在の時刻は: {current_time}")
 
-        # 1秒ごとに更新
+        # 1秒待つ
         time.sleep(1)
 
 if __name__ == "__main__":
