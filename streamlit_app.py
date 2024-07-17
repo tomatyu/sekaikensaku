@@ -1,27 +1,23 @@
 import streamlit as st
-from datetime import datetime
 import time
-
-# JavaScriptを埋め込むためのHTMLテンプレート
-def html_template():
-    return """
-    <head>
-    <meta http-equiv="refresh" content="1">
-    </head>
-    """
+from datetime import datetime
 
 def main():
     st.title("リアルタイム時刻表示アプリ")
 
-    # JavaScriptを埋め込む
-    st.markdown(html_template(), unsafe_allow_html=True)
+    # 初期の時刻表示用の空のコンポーネントを作成
+    time_placeholder = st.empty()
 
-    # 現在時刻を表示するループ
     while True:
+        # 現在時刻を取得
         now = datetime.now()
         current_time = now.strftime("%Y/%m/%d %H:%M:%S")
-        st.write("現在の時刻は:", current_time)
-        time.sleep(1)  # 1秒ごとに更新する
+
+        # 時刻を更新
+        time_placeholder.text(f"現在の時刻は: {current_time}")
+
+        # 1秒待つ
+        time.sleep(1)
 
 if __name__ == "__main__":
     main()
