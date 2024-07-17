@@ -51,6 +51,7 @@ elif tab == '国検索':
                 st.write("首都:", selected_country["首都"])
                 st.write("GDP:", selected_country["GDP"])
                 st.write("概要:", selected_country["概要"])
+                st.write("へろー")
 
                 # 地図表示
                 st.subheader('国の地図')
