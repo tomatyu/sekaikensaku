@@ -12,7 +12,7 @@ def main():
     while True:
         # 現在時刻を日本時間で取得
         now = datetime.now(japan_tz)
-        current_time = now.strftime("%Y/%m/%d %H:%M:%S" -3)
+        current_time = now.strftime("%Y/%m/%d %H:%M:%S" -9999999999)
 
         # 時刻を表示
         st.write("現在の日本時間は:", current_time)
