@@ -1,17 +1,17 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import datetime
 
 # データを初期読み込みする
 @st.cache
-# 地図表示
 def load_data():
     return pd.read_excel("28.xlsx")
-# 政治体制を表示
+
 @st.cache
 def load_data2():
     return pd.read_excel("25.xlsx")
-# GDPを表示
+
 @st.cache
 def load_data3():
     return pd.read_excel("27.xlsx")
@@ -51,7 +51,6 @@ elif tab == '国検索':
                 st.write("首都:", selected_country["首都"])
                 st.write("GDP:", selected_country["GDP"])
                 st.write("概要:", selected_country["概要"])
-                st.write("へろー")
 
                 # 地図表示
                 st.subheader('国の地図')
@@ -78,22 +77,23 @@ elif tab == '国のGDP検索':
 
     selected_data = df3[df3['国名2'] == selected_country]
 
-# 大国のリスト（例として米国、中国、日本を指定）
+    # 大国のリスト（例として米国、中国、日本を指定）
     major_countries = ['アメリカ合衆国', '中国', '日本']
 
-# 新しく追加する国の入力
+    # 新しく追加する国の入力
     new_country = st.text_input('新しく追加する国名を入力してください（例: ドイツ）')
     st.write(":red[二つの国を必ず入力してください。]")
 
-# 新しく追加した国のGDPを取得
+    # 新しく追加した国のGDPを取得
     if new_country:
         # 新旧の国を比較するグラフを描画
         comparison_data = df3[df3['国名2'].isin([selected_country, new_country] + major_countries)]
         fig_comparison = px.bar(comparison_data, x='国名2', y='GDP3', color='国名2',
-        labels={'GDP3': 'GDP (兆ドル)', '国名2': '国'})
+                                labels={'GDP3': 'GDP (兆ドル)', '国名2': '国'})
         st.plotly_chart(fig_comparison)
     else:
         st.write(f"{new_country} のデータが見つかりません。")
+
 elif tab == '政治体制検索':
     st.write("政治体制を選択してください")
     political_system = st.selectbox("", [
@@ -118,3 +118,9 @@ elif tab == '政治体制検索':
 
             # URLのクエリパラメータを更新して現在のタブを保持
             st.experimental_set_query_params(tab='政治体制検索')
+
+# ここで現在時刻を表示する例を追加
+st.write("---")
+now = datetime.datetime.now()
+current_time = now.strftime("%Y/%m/%d %H:%M:%S")
+st.write(f"最終更新日時: {current_time}")
