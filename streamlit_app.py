@@ -104,7 +104,7 @@ elif tab == '政治体制検索':
             if not selected_countries.empty:
                 st.subheader(f"{political_system} の国々")
                 # 選択された政治体制に属する国の表を表示
-                st.write(selected_countries["国名"])
+                st.write(selected_countries["国国"])
 
                 # 地図表示
                 st.subheader(f'{political_system} の地図')
