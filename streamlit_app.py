@@ -9,28 +9,18 @@ df34 = None
 options34 = []  # 選択肢を保持するリスト
 
 @st.cache
-# 地図表示
-def load_data():
-    return pd.read_excel("28.xlsx")
-
-# 政治体制を表示
-@st.cache
-def load_data2():
-    return pd.read_excel("25.xlsx")
-
-# GDPを表示
-@st.cache
-def load_data3():
-    return pd.read_excel("27.xlsx")
+def load_data(file_path):
+    """Excelファイルからデータを読み込む"""
+    return pd.read_excel(file_path)
 
 # Streamlitアプリケーションのセットアップ
 st.title("世界検索")
 st.write("好きな国を検索して、:red[知識] を見つけましょう！")
 
 # データフレームを読み込む
-countries_df = load_data()
-countries_df2 = load_data2()
-df3 = load_data3()
+countries_df = load_data("28.xlsx")
+countries_df2 = load_data("25.xlsx")
+df3 = load_data("27.xlsx")
 
 # 初期の7大国のGDPデータを定義する
 gdp_data = {
@@ -114,7 +104,7 @@ elif tab == '政治体制検索':
             if not selected_countries.empty:
                 st.subheader(f"{political_system} の国々")
                 # 選択された政治体制に属する国の表を表示
-                st.write(selected_countries["国国"])
+                st.write(selected_countries["国名"])
 
                 # 地図表示
                 st.subheader(f'{political_system} の地図')
@@ -123,12 +113,9 @@ elif tab == '政治体制検索':
             else:
                 st.write("検索結果なし")
 
-            # URLのクエリパラメータを更新して現在のタブを保持
-            st.experimental_set_query_params(tab='政治体制検索')
-
 elif tab == '緯度鬼畜クイズ':
-    # 新しい問題を更新する関数
     def update_question():
+        """問題を更新する"""
         global options34
 
         # データから選択肢を設定
@@ -152,8 +139,8 @@ elif tab == '緯度鬼畜クイズ':
         st.session_state.correct = None  # リセットする
         st.session_state.answer_submitted = False  # 回答状態のリセット
 
-    # ユーザーの回答をチェックする関数
     def check_answer(answer):
+        """ユーザーの回答をチェックする"""
         if st.session_state.answer_submitted:
             st.session_state.message = "すでに回答済みです。問題を更新してください。"
             return
@@ -170,70 +157,52 @@ elif tab == '緯度鬼畜クイズ':
         st.session_state.answer_submitted = True  # 回答済みフラグを設定
 
     def reset_points():
+        """ポイントをリセットする"""
         st.session_state.points = 0
         st.session_state.message = "ポイントがリセットされました！"
         st.session_state.reset_done = True  # リセットが行われたフラグを設定
 
-    def main2():
-        global df34
+    # 初期化
+    if 'message' not in st.session_state:
+        st.session_state.message = ''
+    if 'correct' not in st.session_state:
+        st.session_state.correct = None
+    if 'min_latitude_country' not in st.session_state:
+        st.session_state.min_latitude_country = None
+    if 'options' not in st.session_state:
+        st.session_state.options = []
+    if 'points' not in st.session_state:
+        st.session_state.points = 0  # 初期ポイントは0
+    if 'answer_submitted' not in st.session_state:
+        st.session_state.answer_submitted = False  # 回答状態の初期化
+    if 'reset_done' not in st.session_state:
+        st.session_state.reset_done = False  # リセット状態の初期化
 
-        # データがまだ読み込まれていない場合は初回読み込み
-        if df34 is None:
-            df34 = load_data()
+    # サイドバーに現在のポイントとリセットボタンを表示
+    st.sidebar.subheader('現在のポイント')
+    st.sidebar.write(st.session_state.points)
 
-        st.title('国名クイズ')
+    if st.sidebar.button('ポイントをリセット'):
+        reset_points()
 
-        # セッション状態にメッセージ、正解フラグ、ポイント、回答状態がない場合は初期化
-        if 'message' not in st.session_state:
-            st.session_state.message = ''
-        if 'correct' not in st.session_state:
-            st.session_state.correct = None
-        if 'min_latitude_country' not in st.session_state:
-            st.session_state.min_latitude_country = None
-        if 'options' not in st.session_state:
-            st.session_state.options = []
-        if 'points' not in st.session_state:
-            st.session_state.points = 0  # 初期ポイントは0
-        if 'answer_submitted' not in st.session_state:
-            st.session_state.answer_submitted = False  # 回答状態の初期化
-        if 'reset_done' not in st.session_state:
-            st.session_state.reset_done = False  # リセット状態の初期化
+    # 問題更新のボタン
+    if st.button("問題を更新"):
+        update_question()
 
-        # サイドバーに現在のポイントとリセットボタンを表示
-        st.sidebar.subheader('現在のポイント')
-        st.sidebar.write(st.session_state.points)
+    if not st.session_state.options:
+        update_question()
 
-        # リセットボタンを表示する（押されたら無効化せずに毎回押せるようにする）
-        if st.sidebar.button('ポイントをリセット'):
-            reset_points()
+    # 問題の表示
+    st.subheader('以下の国の中から、どれが最も緯度が低い国でしょう？')
 
-        # 問題更新のボタン
-        if st.button("問題を更新"):
-            update_question()
+    # ボタンを使って選択肢を表示
+    cols = st.columns(2)
+    for i, option in enumerate(st.session_state.options):
+        with cols[i % 2]:
+            button_disabled = st.session_state.answer_submitted
+            if st.button(option, disabled=button_disabled, key=f"option_{option}"):
+                check_answer(option)
 
-        # 選択肢がまだ設定されていない場合、または問題が更新された場合に問題を更新する
-        if not st.session_state.options:
-            update_question()
-
-        # 問題の表示
-        st.subheader('以下の国の中から、どれが最も緯度が低い国でしょう？')
-
-        # ボタンを使って選択肢を表示
-        cols = st.columns(2)
-        for i, option in enumerate(st.session_state.options):
-            with cols[i % 2]:
-                # 回答済みかどうかでボタンを無効化する
-                button_disabled = st.session_state.answer_submitted
-                if st.button(option, disabled=button_disabled, key=f"option_{option}"):
-                    check_answer(option)
-
-        # メッセージを表示
-        if st.session_state.message:
-            st.write(st.session_state.message)
-
-    if tab == '緯度鬼畜クイズ':
-        main2()
-
-if __name__ == '__main__':
-    # Streamlit アプリケーションの実行
-    st.experimental_rerun()
+    # メッセージを表示
+    if st.session_state.message:
+        st.write(st.session_state.message)
