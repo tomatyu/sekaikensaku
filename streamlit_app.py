@@ -11,7 +11,7 @@ options34 = []  # 選択肢を保持するリスト
 @st.cache
 # 地図表示
 def load_data():
-    return pd.read_excel("28.Axlsx")
+    return pd.read_excel("28.xlsx")
 
 # 政治体制を表示
 @st.cache
