@@ -174,6 +174,11 @@ elif tab == '緯度鬼畜クイズ':
         """クイズのメイン関数"""
         global df34
 
+        if df34 is None:
+            df34 = load_data("28.xlsx")
+
+        st.title('国名クイズ')
+
         # セッション状態の初期化
         if 'message' not in st.session_state:
             st.session_state.message = ''
@@ -221,7 +226,3 @@ elif tab == '緯度鬼畜クイズ':
 
     if tab == '緯度鬼畜クイズ':
         main2()
-
-if __name__ == '__main__':
-    # Streamlit アプリケーションの実行
-    st.experimental_rerun()
