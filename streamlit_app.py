@@ -119,7 +119,7 @@ elif tab == '緯度鬼畜クイズ':
         global options34
 
         # データから選択肢を設定
-        unique_countries = df34['国'].unique()
+        unique_countries = df34['国名'].unique()
         
         # ランダムに4つの国を選ぶ
         selected_countries = random.sample(list(unique_countries), 4)
