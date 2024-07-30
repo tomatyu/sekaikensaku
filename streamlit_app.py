@@ -246,9 +246,9 @@ elif tab == '用語辞典':
     ])
         if st.button('国を表示'):
            if political.strip() != "":
-            selected_countries = df4[df4["辞典"] == political.strip()]
+            selected_countries2 = df4[df4["辞典"] == political.strip()]
 
-            if not selected_countries.empty:
+            if not selected_countries2.empty:
                 
                 # 選択された政治体制に属する国の表を表示
-                st.write(selected_countries["意味1"])
+                st.write(selected_countries2["意味1"])
