@@ -106,8 +106,8 @@ elif tab == '政治体制検索':
        "共和制", "多党制民主主義", "立憲君主制", "半大統領制", "議院内閣制", "絶対君主制", "準連邦制",
        "単一政党制", "軍事政権", "混合制", "大統領制"
     ])
-    if st.button('国を表示'):
-        if political_system.strip() != "":
+    
+    if political_system.strip() != "":
             selected_countries = countries_df2[countries_df2["体制"] == political_system.strip()]
 
             if not selected_countries.empty:
