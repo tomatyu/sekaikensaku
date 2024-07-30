@@ -251,4 +251,4 @@ elif tab == '用語辞典':
             if not selected_countries2.empty:
                 
                 # 選択された政治体制に属する国の表を表示
-                st.write(selected_countries2["意味1"])
+                st.write(selected_countries2["意味１"])
