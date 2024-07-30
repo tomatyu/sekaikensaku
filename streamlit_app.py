@@ -248,7 +248,7 @@ elif tab == '用語辞典':
     ])
     
     # ボタンが押されたときの処理
-    if st.button('国を表示'):
+    if st.button('意味を表示'):
         if political.strip() != "":
             # 選択した政治体制に基づいてデータをフィルタリング
             selected_countries2 = df4[df4["辞典"] == political.strip()]
