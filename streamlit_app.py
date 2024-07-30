@@ -185,7 +185,7 @@ elif tab == '緯度クイズ':
         if df34 is None:
             df34 = load_data("28.xlsx")
 
-        st.title('国名クイズ')
+       
         st.write("わからなかった国は上の検索で知ることができます！")
 
         # セッション状態の初期化
@@ -233,7 +233,7 @@ elif tab == '緯度クイズ':
         if st.session_state.message:
             st.write(st.session_state.message)
 
-    if tab == '緯度鬼畜クイズ':
+    if tab == '緯度クイズ':
         main2()
 elif tab == '用語辞典':
         st.title("用語辞典")
