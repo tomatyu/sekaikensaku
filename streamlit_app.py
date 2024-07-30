@@ -242,7 +242,7 @@ elif tab == '用語辞典':
         st.subheader("このアプリでの用語を確認できます")
         political = st.selectbox("", [
        "共和制", "多党制民主主義", "立憲君主制", "半大統領制", "議院内閣制", "絶対君主制", "準連邦制",
-       "単一政党制", "軍事政権", "混合制", "大統領制","IMF",""
+       "単一政党制", "軍事政権", "混合制", "大統領制","IMF","兆ドル"
     ])
         if st.button('国を表示'):
            if political.strip() != "":
@@ -251,4 +251,4 @@ elif tab == '用語辞典':
             if not selected_countries.empty:
                 
                 # 選択された政治体制に属する国の表を表示
-                st.write(selected_countries["意味"])
+                st.write(selected_countries["意味1"])
