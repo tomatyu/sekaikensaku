@@ -13,9 +13,7 @@ def load_data(file_path):
     """Excelファイルからデータを読み込む"""
     return pd.read_excel(file_path)
 
-# Streamlitアプリケーションのセットアップ
-st.title("世界検索")
-st.write("好きな国を検索して、:red[知識] を見つけましょう！")
+
 
 # データフレームを読み込む（全て）
 # 国の地図
@@ -35,6 +33,8 @@ gdp_data = {
 tab = st.sidebar.radio("選択してください", ['ホーム', '国検索', '国のGDP検索', '政治体制検索', '緯度鬼畜クイズ','用語辞典'])
 
 if tab == 'ホーム':
+    st.title("世界検索")
+    st.write("好きな国を検索して、:red[知識] を見つけましょう！")
     st.write(":blue[世界検索へようこそ！！]")
     st.write("ここでは様々な国を検索することができます")
     st.write("早速、左のタブから選択して楽しみましょう！！")
