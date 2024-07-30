@@ -238,19 +238,24 @@ elif tab == '緯度クイズ':
     if tab == '緯度クイズ':
         main2()
 elif tab == '用語辞典':
-        st.title("用語辞典")
-        st.subheader("このアプリでの用語を確認できます")
-        political = st.selectbox("", [
-       "共和制", "多党制民主主義", "立憲君主制", "半大統領制", "議院内閣制", "絶対君主制", "準連邦制",
-       "単一政党制", "軍事政権", "混合制", "大統領制","IMF","兆ドル"
-    ])
-        if st.button('国を表示'):
-           if political.strip() != "":
-            selected_countries2 = df4[df4["辞典"] == political.strip()]
-            if not selected_countries2.empty:
-             if not selected_countries2.empty:
+    st.title("用語辞典")
+    st.subheader("このアプリでの用語を確認できます")
 
+    # 選択肢を表示
+    political = st.selectbox("", [
+       "共和制", "多党制民主主義", "立憲君主制", "半大統領制", "議院内閣制", "絶対君主制", "準連邦制",
+       "単一政党制", "軍事政権", "混合制", "大統領制", "IMF", "兆ドル"
+    ])
+    
+    # ボタンが押されたときの処理
+    if st.button('国を表示'):
+        if political.strip() != "":
+            # 選択した政治体制に基づいてデータをフィルタリング
+            selected_countries2 = df4[df4["辞典"] == political.strip()]
             
-                
-                # 選択された政治体制に属する国の表を表示
-                st.write(selected_countries2["意味１"])
+            # フィルタリング結果が空でない場合に処理を実行
+            if not selected_countries2.empty:
+                # 選択された政治体制に関する説明を表示
+                st.write(selected_countries2["意味１"].values[0])
+            else:
+                st.write("該当するデータが見つかりませんでした。")
