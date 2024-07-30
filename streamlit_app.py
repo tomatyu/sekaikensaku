@@ -30,7 +30,7 @@ gdp_data = {
 }
 
 # sidebarにボタンを配置
-tab = st.sidebar.radio("選択してください", ['ホーム', '国検索', '国のGDP検索', '政治体制検索', '緯度鬼畜クイズ','用語辞典'])
+tab = st.sidebar.radio("選択してください", ['ホーム', '国検索', '国のGDP検索', '政治体制検索', '緯度クイズ','用語辞典'])
 
 if tab == 'ホーム':
     st.title("世界検索")
@@ -39,6 +39,7 @@ if tab == 'ホーム':
     st.write("早速、左のタブから選択して楽しみましょう！！")
 
 elif tab == '国検索':
+    st.title("国検索")
     st.write("国名を入力してください（適用していない国もあります）")
     a = st.text_input("")
     if st.button('国を表示'):
@@ -66,6 +67,7 @@ elif tab == '国検索':
                 st.write("検索結果なし")
 
 elif tab == '国のGDP検索':
+    st.title("GDP比較")
     st.write('データソース: IMF')
     st.write("単位は兆ドルとなっています")
    
@@ -96,6 +98,7 @@ elif tab == '国のGDP検索':
         st.write(f"{new_country} のデータが見つかりません。")
 
 elif tab == '政治体制検索':
+    st.title("政治体制検索")
     st.write("政治体制を選択してください")
     political_system = st.selectbox("", [
        "共和制", "多党制民主主義", "立憲君主制", "半大統領制", "議院内閣制", "絶対君主制", "準連邦制",
@@ -117,7 +120,8 @@ elif tab == '政治体制検索':
             else:
                 st.write("検索結果なし")
 
-elif tab == '緯度鬼畜クイズ':
+elif tab == '緯度クイズ':
+    st.title("緯度クイズ")
     def update_question():
         """問題を更新する"""
         global df34
@@ -232,7 +236,7 @@ elif tab == '緯度鬼畜クイズ':
     if tab == '緯度鬼畜クイズ':
         main2()
 elif tab == '用語辞典':
+        st.title("用語辞典")
         st.subheader("このアプリでの用語を確認できます")
-        st.write("")
         st.write("兆ドル:国際的な経済や財政の議論において、特に大きな規模や額を示す際に使用される単位です。1兆ドルは10の12乗ドル、つまり1,000億ドルに相当します。")
         st.write("IMF:IMF（International Monetary Fund、国際通貨基金）は、国際的な経済協力と安定を促進するために設立された国際機関です。")
