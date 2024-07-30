@@ -17,9 +17,12 @@ def load_data(file_path):
 st.title("世界検索")
 st.write("好きな国を検索して、:red[知識] を見つけましょう！")
 
-# データフレームを読み込む
+# データフレームを読み込む（全て）
+# 国の地図
 countries_df = load_data("28.xlsx")
+# 政治体制
 countries_df2 = load_data("25.xlsx")
+# GDP比較の表
 df3 = load_data("27.xlsx")
 
 # 初期の7大国のGDPデータを定義する
