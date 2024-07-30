@@ -181,7 +181,7 @@ elif tab == '緯度鬼畜クイズ':
             df34 = load_data("28.xlsx")
 
         st.title('国名クイズ')
-        st.write(":red[問題の更新を行うとき以外は行動の確定のためにボタンを二度押してください]")
+        st.write("わからなかった国は上の検索で知ることができます！")
 
         # セッション状態の初期化
         if 'message' not in st.session_state:
