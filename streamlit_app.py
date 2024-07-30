@@ -22,6 +22,8 @@ countries_df = load_data("28.xlsx")
 countries_df2 = load_data("25.xlsx")
 # GDP比較の表
 df3 = load_data("27.xlsx")
+#　辞典
+df4 = load_data("1sw.xlsx")
 
 # 初期の7大国のGDPデータを定義する
 gdp_data = {
@@ -238,5 +240,15 @@ elif tab == '緯度クイズ':
 elif tab == '用語辞典':
         st.title("用語辞典")
         st.subheader("このアプリでの用語を確認できます")
-        st.write("兆ドル:国際的な経済や財政の議論において、特に大きな規模や額を示す際に使用される単位です。1兆ドルは10の12乗ドル、つまり1,000億ドルに相当します。")
-        st.write("IMF:IMF（International Monetary Fund、国際通貨基金）は、国際的な経済協力と安定を促進するために設立された国際機関です。")
+        political = st.selectbox("", [
+       "共和制", "多党制民主主義", "立憲君主制", "半大統領制", "議院内閣制", "絶対君主制", "準連邦制",
+       "単一政党制", "軍事政権", "混合制", "大統領制","IMF",""
+    ])
+        if st.button('国を表示'):
+           if political.strip() != "":
+            selected_countries = df4[df4["辞典"] == political.strip()]
+
+            if not selected_countries.empty:
+                
+                # 選択された政治体制に属する国の表を表示
+                st.write(selected_countries["意味"])
