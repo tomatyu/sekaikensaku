@@ -102,7 +102,7 @@ elif tab == '国のGDP検索':
 elif tab == '政治体制検索':
     st.title("政治体制検索")
     st.write("政治体制を選択してください")
-    political_system = st.selectbox("", [
+    political_system = st.selectbox("", ["",
        "共和制", "多党制民主主義", "立憲君主制", "半大統領制", "議院内閣制", "絶対君主制", "準連邦制",
        "単一政党制", "軍事政権", "混合制", "大統領制"
     ])
