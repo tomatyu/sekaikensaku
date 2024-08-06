@@ -23,7 +23,7 @@ countries_df2 = load_data("25.xlsx")
 # GDP比較の表
 df3 = load_data("27.xlsx")
 #　辞典
-df4 = load_data("1sw.xlsx")
+df4 = load_data("2sw.xlsx")
 
 # 初期の7大国のGDPデータを定義する
 gdp_data = {
