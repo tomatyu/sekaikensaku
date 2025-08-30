@@ -1,5 +1,7 @@
 import streamlit as st
+
 from streamlit_keydown import keydown
+
 st.set_page_config(page_title="ハート移動", layout="centered")
 st.title("♥ を矢印キーで動かそう！")
 # セッションステートで位置管理
