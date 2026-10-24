@@ -4,7 +4,6 @@ import plotly.express as px
 import random
 
 # データを初期読み込みする
-# 変数としてデータフレームを宣言する
 df34 = None
 options34 = []  # 選択肢を保持するリスト
 
@@ -42,7 +41,7 @@ if tab == 'ホーム':
 elif tab == '国検索':
     st.title("国検索")
     st.write("国名を入力してください（適用していない国もあります）")
-    a = st.text_input("国名を入力")
+    a = st.text_input("")
 
     # 国を入力する欄を表示する   
     if a.strip() != "":
@@ -77,7 +76,7 @@ elif tab == '国のGDP検索':
     countries_list = df3['国名2'].tolist()
 
     # 選択した国の入力する欄を表示する
-    selected_country = st.text_input('比較したい国を入力してください（例: USA, China, Japanなど）', key='sel_country')
+    selected_country = st.text_input('比較したい国を入力してください（例: USA, China, Japanなど）')
 
     selected_data = df3[df3['国名2'] == selected_country]
 
@@ -85,7 +84,7 @@ elif tab == '国のGDP検索':
     major_countries = ['アメリカ合衆国', '中国', '日本']
 
     # 新しく追加する国の入力する欄を表示する
-    new_country = st.text_input('新しく追加する国名を入力してください（例: ドイツ）', key='new_country')
+    new_country = st.text_input('新しく追加する国名を入力してください（例: ドイツ）')
     st.write(":red[二つの国を必ず入力してください。]")
 
     # 新しく追加した国のGDPを取得する
@@ -96,16 +95,16 @@ elif tab == '国のGDP検索':
         labels={'GDP3': 'GDP (兆ドル)', '国名2': '国'})
         st.plotly_chart(fig_comparison)
     else:
-        st.write("両方の国名を入力してください。")
+        st.write(f"{new_country} のデータが見つかりません。")
 
 elif tab == '政治体制検索':
     st.title("政治体制検索")
     # 政治体制を選択する選択バーを表示する
     st.write("政治体制を選択してください")
-    political_system = st.selectbox("体制を選択", ["",
+    political_system = st.selectbox("", ["",
        "共和制", "多党制民主主義", "立憲君主制", "半大統領制", "議院内閣制", "絶対君主制", "準連邦制",
        "単一政党制", "軍事政権", "混合制", "大統領制"
-    ], key='poli_sys')
+    ])
     
     if political_system.strip() != "":
         selected_countries = countries_df2[countries_df2["体制"] == political_system.strip()]
@@ -116,4 +115,144 @@ elif tab == '政治体制検索':
             st.write(selected_countries["国国"])
 
             # 地図を表示する
-            st.subheader(f'{political_system
+            st.subheader(f'{political_system} の地図')
+            locations = pd.DataFrame({'lat': selected_countries["緯度2"], 'lon': selected_countries["経度2"]})
+            st.map(locations, zoom=0.5)
+        else:
+            st.write("検索結果なし")
+
+elif tab == '緯度クイズ':
+    st.title("緯度クイズ")
+    def update_question():
+        """問題を更新する"""
+        global df34
+
+        if df34 is None:
+            df34 = load_data("28.xlsx")
+
+        # 確認する
+        if '国名' not in df34.columns or '緯度' not in df34.columns:
+            st.write("データが正しく読み込まれていません。")
+            return
+
+        # データ（df34）から選択肢を設定
+        unique_countries = df34['国名'].unique()
+        
+        # ランダムに4つの国を選ぶ
+        selected_countries = random.sample(list(unique_countries), 4)
+        
+        # 4つの国の緯度情報を取得し、最も緯度が低い国を正解とする
+        selected_df = df34[df34['国名'].isin(selected_countries)]
+        min_latitude_country = selected_df.loc[selected_df['緯度'].idxmin(), '国名']
+
+        # 選択肢をシャッフルして表示する
+        options34 = selected_countries
+        random.shuffle(options34)
+
+        # 更新
+        st.session_state.min_latitude_country = min_latitude_country
+        st.session_state.options = options34
+        st.session_state.message = "新しい問題が表示されています。"
+        st.session_state.correct = None  # リセットする
+        st.session_state.answer_submitted = False  # 回答状態のリセット
+
+    def check_answer(answer):
+        """ユーザーの回答をチェックする"""
+        if st.session_state.answer_submitted:
+            st.session_state.message = "すでに回答済みです。問題を更新してください。"
+            return
+
+        if answer == st.session_state.min_latitude_country:
+            st.session_state.message = f"正解！正解は「{st.session_state.min_latitude_country}」です。"
+            st.session_state.points += 10  # 正解で10ポイント追加
+            st.session_state.correct = True
+        else:
+            st.session_state.message = f"不正解…「{answer}」は正しくありません。正解は「{st.session_state.min_latitude_country}」です。"
+            st.session_state.points -= 10  # 不正解で10ポイント減算
+            st.session_state.correct = False
+
+        st.session_state.answer_submitted = True  # 回答済みフラグを設定
+
+    def reset_points():
+        """ポイントをリセットする"""
+        st.session_state.points = 0
+        st.session_state.message = "ポイントがリセットされました！"
+        st.session_state.reset_done = True  # リセットが行われたフラグを設定
+
+    def main2():
+        """クイズのメイン関数"""
+        global df34
+
+        if df34 is None:
+            df34 = load_data("28.xlsx")
+
+        st.write("わからなかった国は上の検索で知ることができます！")
+
+        # セッション状態の初期化
+        if 'message' not in st.session_state:
+            st.session_state.message = ''
+        if 'correct' not in st.session_state:
+            st.session_state.correct = None
+        if 'min_latitude_country' not in st.session_state:
+            st.session_state.min_latitude_country = None
+        if 'options' not in st.session_state:
+            st.session_state.options = []
+        if 'points' not in st.session_state:
+            st.session_state.points = 0  # 初期ポイントは0
+        if 'answer_submitted' not in st.session_state:
+            st.session_state.answer_submitted = False  # 回答状態の初期化
+        if 'reset_done' not in st.session_state:
+            st.session_state.reset_done = False  # リセット状態の初期化
+
+        # サイドバーに現在のポイントとリセットボタンを表示
+        st.sidebar.subheader('現在のポイント')
+        st.sidebar.write(st.session_state.points)
+
+        if st.sidebar.button('ポイントをリセット'):
+            reset_points()
+
+        # 問題更新のボタンを表示する
+        if st.button("問題を更新"):
+            update_question()
+
+        if not st.session_state.options:
+            update_question()
+
+        # 問題文の表示を行う
+        st.subheader('以下の国の中から、どれが最も緯度が低い国でしょう？')
+
+        # ボタンを使って選択肢を表示する
+        cols = st.columns(2)
+        for i, option in enumerate(st.session_state.options):
+            with cols[i % 2]:
+                button_disabled = st.session_state.answer_submitted
+                if st.button(option, disabled=button_disabled, key=f"option_{option}"):
+                    check_answer(option)
+
+        # メッセージを表示する
+        if st.session_state.message:
+            st.write(st.session_state.message)
+
+    main2()
+
+elif tab == '用語辞典':
+    st.title("用語辞典")
+    st.subheader("このアプリでの用語を確認できます")
+
+    # 選択肢を表示する
+    political = st.selectbox("", [
+       "共和制", "多党制民主主義", "立憲君主制", "半大統領制", "議院内閣制", "絶対君主制", "準連邦制",
+       "単一政党制", "軍事政権", "混合制", "大統領制", "IMF", "兆ドル"
+    ])
+    
+    # ボタンが押されたときの処理を行う
+    if political.strip() != "":
+        # データのフィルタリングを行う
+        selected_countries2 = df4[df4["辞典"] == political.strip()]
+        
+        # 結果が空でない場合に処理を行う
+        if not selected_countries2.empty:
+            # 選択された政治体制に関する説明を表示する
+            st.write(selected_countries2["意味１"].values[0])
+        else:
+            st.write("該当するデータが見つかりませんでした。")
